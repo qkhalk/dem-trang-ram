@@ -433,93 +433,6 @@
     if (wishTimer) { clearTimeout(wishTimer); wishTimer = null; }
   }
 
-  /* ---------- Nhạc nền tự sinh (WebAudio, không cần file) ---------- */
-
-  function MusicBox() {
-    var ctx = null, master = null, timer = null, padOn = false, on = false;
-    /* Ngũ cung Đô ở bậc cao — sáng, vui, đúng không khí hội hè */
-    var NOTES = [523.25, 587.33, 659.25, 783.99, 880.0, 1046.5]; /* C5 D5 E5 G5 A5 C6 */
-    var MELODY = [
-      2, 2, 4, 3,  2, 0, 1, 2,   3, null, 3, 4,   5, 4, 3, 2,
-      1, 2, 3, 1,  0, null, 0, 1,   2, 3, 2, 1,   0, null, 3, null
-    ];
-    var STEP = 265; /* ms mỗi nốt — nhịp bước vui */
-    var stepIdx = 0;
-
-    function ensure() {
-      if (ctx) return true;
-      var AC = window.AudioContext || window.webkitAudioContext;
-      if (!AC) return false;
-      ctx = new AC();
-      master = ctx.createGain();
-      master.gain.value = 0;
-      master.connect(ctx.destination);
-      return true;
-    }
-
-    function pluck(freq, when, vol) {
-      var g = ctx.createGain();
-      var o = ctx.createOscillator(), o2 = ctx.createOscillator(), o3 = ctx.createOscillator();
-      var g2 = ctx.createGain(), g3 = ctx.createGain();
-      o.type = 'triangle'; o.frequency.value = freq;
-      o2.type = 'sine'; o2.frequency.value = freq * 2; g2.gain.value = 0.16;
-      o3.type = 'sine'; o3.frequency.value = freq * 3; g3.gain.value = 0.05;
-      g.gain.setValueAtTime(0.0001, when);
-      g.gain.linearRampToValueAtTime(vol, when + 0.012);
-      g.gain.exponentialRampToValueAtTime(0.0001, when + 0.95);
-      o.connect(g); o2.connect(g2); o3.connect(g3); g2.connect(g); g3.connect(g); g.connect(master);
-      o.start(when); o2.start(when); o3.start(when);
-      o.stop(when + 1.05); o2.stop(when + 1.05); o3.stop(when + 1.05);
-    }
-
-    function pad() {
-      if (padOn) return;
-      padOn = true;
-      var o1 = ctx.createOscillator(), o2 = ctx.createOscillator(), g = ctx.createGain();
-      o1.type = 'sine'; o1.frequency.value = 261.63;
-      o2.type = 'sine'; o2.frequency.value = 392.0;
-      g.gain.value = 0.022;
-      var lfo = ctx.createOscillator(), lg = ctx.createGain();
-      lfo.frequency.value = 0.35; lg.gain.value = 0.01;
-      lfo.connect(lg); lg.connect(g.gain);
-      o1.connect(g); o2.connect(g); g.connect(master);
-      o1.start(); o2.start(); lfo.start();
-    }
-
-    function schedule() {
-      timer = setTimeout(function tick() {
-        var t = ctx.currentTime + 0.04;
-        var step = MELODY[stepIdx % MELODY.length];
-        if (step != null) {
-          pluck(NOTES[step], t, 0.16);
-          if (Math.random() < 0.3) pluck(NOTES[step] * 2, t + STEP / 2000, 0.05);
-        }
-        stepIdx++;
-        timer = setTimeout(tick, STEP);
-      }, 250);
-    }
-
-    this.start = function () {
-      if (!ensure()) return;
-      if (ctx.state === 'suspended') ctx.resume();
-      if (on) return;
-      on = true;
-      pad();
-      master.gain.cancelScheduledValues(ctx.currentTime);
-      master.gain.setValueAtTime(master.gain.value, ctx.currentTime);
-      master.gain.linearRampToValueAtTime(0.5, ctx.currentTime + 1.2);
-      schedule();
-    };
-    this.stop = function () {
-      if (!ctx || !on) return;
-      on = false;
-      master.gain.cancelScheduledValues(ctx.currentTime);
-      master.gain.setValueAtTime(master.gain.value, ctx.currentTime);
-      master.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.5);
-      if (timer) { clearTimeout(timer); timer = null; }
-    };
-  }
-
   /* ---------- Khởi tạo ---------- */
 
   function init() {
@@ -669,25 +582,42 @@
       window.setFestivalLanterns = function (on) { festivalMode = on; };
     }
 
-    /* ---------- Nhạc nền: tự phát khi vào trang ----------
-       Trình duyệt chặn tiếng trước cú chạm đầu tiên, nên:
-       thử phát ngay — nếu bị treo ở trạng thái suspended thì
-       cú chạm/click/phím đầu tiên sẽ đánh thức nó. Không cần nút. */
+    /* ---------- Nhạc nền vui: file nhạc, tự phát khi vào trang ----------
+       "Wholesome" — Kevin MacLeod (incompetech.com), CC BY 4.0.
+       Trình duyệt chặn tiếng trước cú chạm đầu tiên: thử phát ngay,
+       nếu bị chặn thì cú chạm/click/phím đầu tiên sẽ kích hoạt. */
 
-    var music = new MusicBox();
+    var bgAudio = null;
+
+    function startMusic() {
+      if (!bgAudio) {
+        bgAudio = new Audio('audio/nhac-nen.mp3');
+        bgAudio.loop = true;
+        bgAudio.volume = 0.45;
+        bgAudio.preload = 'auto';
+      }
+      var p = bgAudio.play();
+      if (p && p.catch) p.catch(function () { /* chờ cú chạm đầu */ });
+    }
 
     var kick = function () {
       document.removeEventListener('pointerdown', kick);
       document.removeEventListener('keydown', kick);
       document.removeEventListener('touchstart', kick);
-      music.start();
+      startMusic();
     };
     document.addEventListener('pointerdown', kick);
     document.addEventListener('keydown', kick);
     document.addEventListener('touchstart', kick, { passive: true });
 
-    // nhiều trình duyệt cho phép nếu người dùng đã từng tương tác với trang này
-    try { music.start(); } catch (e) { /* im lặng, chờ kick */ }
+    try { startMusic(); } catch (e) { /* im lặng, chờ kick */ }
+
+    // đỡ tốn pin: dừng khi ẩn tab, phát lại khi quay lại
+    document.addEventListener('visibilitychange', function () {
+      if (!bgAudio) return;
+      if (document.hidden) { bgAudio.pause(); }
+      else { bgAudio.play().catch(function () {}); }
+    });
 
     /* ---------- Đếm ngược + đêm lễ hội ---------- */
 

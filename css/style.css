@@ -251,7 +251,7 @@ body:not([data-screen="home"]) .nav {
     linear-gradient(90deg, oklch(12% 0.04 286 / 0.5), transparent 58%),
     radial-gradient(1100px 720px at 76% 24%, oklch(32% 0.06 70 / 0.3), transparent 62%),
     linear-gradient(180deg, oklch(12% 0.04 286 / 0.72), oklch(15% 0.045 283 / 0.58) 55%, oklch(13% 0.04 284 / 0.8)),
-    url("../img/bg-home.jpg") center / cover no-repeat,
+    url("../img/bg-home.webp") center / cover no-repeat,
     linear-gradient(180deg, oklch(12% 0.04 286), oklch(15% 0.04 284));
 }
 
@@ -473,7 +473,7 @@ body.festival .moon {
 .legends {
   background:
     linear-gradient(180deg, oklch(14% 0.035 285 / 0.86), oklch(16% 0.042 283 / 0.72) 50%, oklch(14% 0.035 285 / 0.88)),
-    url("../img/bg-legends.jpg") center / cover no-repeat,
+    url("../img/bg-legends.webp") center / cover no-repeat,
     linear-gradient(180deg, var(--night-950), oklch(16% 0.042 283));
 }
 
@@ -525,7 +525,7 @@ body.festival .moon {
 .customs {
   background:
     linear-gradient(180deg, oklch(14% 0.035 285 / 0.84), oklch(15% 0.038 284 / 0.7) 50%, oklch(13% 0.036 284 / 0.88)),
-    url("../img/bg-customs.jpg") center / cover no-repeat,
+    url("../img/bg-customs.webp") center / cover no-repeat,
     linear-gradient(180deg, oklch(16% 0.042 283), var(--night-950));
 }
 
@@ -591,7 +591,7 @@ body.festival .moon {
   overflow: hidden;
   background:
     linear-gradient(180deg, oklch(13% 0.036 284 / 0.86), oklch(14% 0.038 283 / 0.7) 45%, oklch(12% 0.034 284 / 0.88)),
-    url("../img/bg-wish.jpg") center / cover no-repeat,
+    url("../img/bg-wish.webp") center / cover no-repeat,
     linear-gradient(var(--night-950), oklch(13% 0.04 284));
 }
 
