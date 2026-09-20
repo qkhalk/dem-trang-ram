@@ -2,6 +2,7 @@
    ĐÊM TRĂNG RẰM · Tết Trung Thu 2026
    Hướng: editorial dark + paper-cut lễ hội
    Nền indigo đêm · vàng trăng · đỏ đèn lồng
+   Kết cấu: từng màn hình riêng, không cuộn trang dài
    ============================================================ */
 
 :root {
@@ -28,7 +29,7 @@
   --art-outline: #3B2314;
 
   /* Chữ */
-  --font-display: "Bodoni Moda", Georgia, "Times New Roman", serif;
+  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
   --font-body: "Be Vietnam Pro", "Segoe UI", Tahoma, sans-serif;
   --step--1: clamp(0.82rem, 0.8rem + 0.1vw, 0.88rem);
   --step-0: clamp(1.05rem, 1rem + 0.2vw, 1.125rem);
@@ -57,13 +58,14 @@
 
   /* Bóng: tint nâu-vàng theo màu thương hiệu */
   --shadow-warm: 0 1px 2px oklch(45% 0.08 70 / 0.35), 0 6px 18px oklch(45% 0.08 70 / 0.28);
+
+  /* Thanh nav */
+  --nav-h: 68px;
 }
 
 /* ---------- Nền tảng ---------- */
 
 *, *::before, *::after { box-sizing: border-box; }
-
-html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
@@ -75,6 +77,9 @@ body {
   background: linear-gradient(var(--night-950), var(--night-900) 55%, var(--night-950));
   -webkit-font-smoothing: antialiased;
 }
+
+/* Khi có JS: trang khoá cuộn dọc, mỗi màn tự lo phần tràn của mình */
+html.js, html.js body { height: 100%; overflow: hidden; }
 
 h1, h2, h3 {
   font-family: var(--font-display);
@@ -96,7 +101,7 @@ a { color: var(--gold-300); }
   border-radius: 4px;
 }
 
-.wrap { width: min(1120px, 92vw); margin-inline: auto; }
+.wrap { width: min(1160px, 92vw); margin-inline: auto; }
 
 .sr-only {
   position: absolute; width: 1px; height: 1px;
@@ -112,7 +117,29 @@ a { color: var(--gold-300); }
 }
 .skip-link:focus { top: 12px; }
 
-section[id] { scroll-margin-top: 84px; }
+/* ---------- Hệ màn hình ---------- */
+
+.screen { position: relative; }
+
+.js .screen { display: none; }
+.js .screen.is-active {
+  display: block;
+  height: 100dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  animation: screenIn 0.5s var(--ease-out-quint);
+}
+
+@keyframes screenIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Màn nội dung (trừ home) chừa chỗ cho thanh nav cố định */
+.screen-pad { padding-top: calc(var(--nav-h) + 28px); padding-bottom: 28px; }
+
+/* Cột nội dung tự căn giữa theo chiều dọc trong màn */
+.center-col { min-height: 100dvh; display: flex; flex-direction: column; justify-content: center; }
 
 /* ---------- Nút ---------- */
 
@@ -157,17 +184,20 @@ section[id] { scroll-margin-top: 84px; }
 
 .nav {
   position: fixed; inset-inline: 0; top: 0; z-index: 50;
-  transition: background-color 0.3s var(--ease-out-quart), border-color 0.3s;
   border-bottom: 1px solid transparent;
+  transition: background-color 0.3s var(--ease-out-quart), border-color 0.3s var(--ease-out-quart);
 }
-.nav.scrolled {
-  background: oklch(17% 0.04 283 / 0.94);
+
+/* Ngay trên bầu trời đêm của màn đầu thì nav trong suốt;
+   trên các màn nội dung thì có nền để chữ đỡ loang */
+body:not([data-screen="home"]) .nav {
+  background: oklch(15% 0.038 284 / 0.92);
   border-bottom-color: var(--line);
 }
 
 .nav-inner {
   width: min(1200px, 94vw); margin-inline: auto;
-  height: 68px;
+  height: var(--nav-h);
   display: flex; align-items: center; justify-content: space-between; gap: var(--sp-6);
 }
 
@@ -195,14 +225,16 @@ section[id] { scroll-margin-top: 84px; }
 }
 .nav-links a:hover { color: var(--gold-200); }
 .nav-links a:hover::after { transform: scaleX(1); }
+.nav-links a[aria-current="page"] { color: var(--gold-200); }
+.nav-links a[aria-current="page"]::after { transform: scaleX(1); }
 
-/* ---------- Hero: sân khấu đêm trăng ---------- */
+/* ---------- MÀN 1 · Hero: sân khấu đêm trăng ---------- */
 
 .hero {
   position: relative;
   min-height: 100dvh;
   display: grid; align-items: center;
-  padding: 130px 0 170px;
+  padding: calc(var(--nav-h) + 36px) 0 170px;
   overflow: hidden;
   background:
     radial-gradient(1100px 720px at 76% 24%, oklch(32% 0.06 70 / 0.5), transparent 62%),
@@ -244,6 +276,14 @@ section[id] { scroll-margin-top: 84px; }
 @keyframes moonLife {
   from { transform: translateY(0); filter: brightness(1); }
   to   { transform: translateY(-10px); filter: brightness(1.06); }
+}
+
+/* Đêm lễ hội: trăng rực hơn */
+body.festival .moon {
+  box-shadow:
+    0 0 80px 20px oklch(82% 0.13 86 / 0.6),
+    0 0 220px 72px oklch(82% 0.13 86 / 0.3),
+    inset -20px -26px 64px oklch(70% 0.1 80 / 0.35);
 }
 
 /* Mây trôi */
@@ -339,7 +379,7 @@ section[id] { scroll-margin-top: 84px; }
 .glow-pulse { animation: glowPulse 3.2s ease-in-out infinite alternate; }
 @keyframes glowPulse { from { opacity: 0.5; } to { opacity: 1; } }
 
-/* Vào trang: một màn dạo đầu duy nhất */
+/* Vào màn: dạo đầu nhẹ */
 @media (prefers-reduced-motion: no-preference) {
   .js .layer-moon { animation: moonEnter 1.1s var(--ease-out-quint) both; }
   .js .hero-skyline { animation: skylineEnter 1.2s var(--ease-out-quint) 0.15s both; }
@@ -347,113 +387,129 @@ section[id] { scroll-margin-top: 84px; }
 @keyframes moonEnter { from { opacity: 0; scale: 0.94; } to { opacity: 1; scale: 1; } }
 @keyframes skylineEnter { from { opacity: 0; transform: translateY(34px); } to { opacity: 1; transform: translateY(0); } }
 
-/* ---------- Đếm ngược ---------- */
+/* ---------- Đếm ngược (nhúng trong hero) ---------- */
 
-.countdown {
-  background: linear-gradient(180deg, var(--night-900), var(--night-800));
-  border-block: 1px solid var(--line);
-  padding-block: clamp(64px, 8vw, 88px) clamp(56px, 7vw, 76px);
-  text-align: center;
-}
-
-.count-title {
-  font-size: var(--step-2);
-  color: var(--gold-200);
-}
+.count-hero { margin-top: var(--sp-8); }
 
 .count-grid {
   display: inline-flex;
-  margin-top: var(--sp-8);
-  background: oklch(14% 0.035 285 / 0.6);
+  background: oklch(14% 0.035 285 / 0.62);
   border: 1px solid var(--line);
-  border-radius: 16px;
-  padding: 22px 10px;
+  border-radius: 14px;
+  padding: 12px 6px;
+  backdrop-filter: none;
 }
 
-.count-cell { padding: 6px clamp(22px, 4.5vw, 52px); }
+.count-cell { padding: 4px clamp(16px, 3.4vw, 42px); text-align: center; }
 .count-cell + .count-cell { border-left: 1px solid var(--line); }
 
 .count-num {
   display: block;
-  font-size: clamp(2.2rem, 2rem + 2vw, 3.4rem);
+  font-size: clamp(1.6rem, 1.4rem + 1.2vw, 2.4rem);
   font-weight: 600;
-  line-height: 1.05;
+  line-height: 1.1;
   font-variant-numeric: tabular-nums;
   color: var(--cream);
 }
 .count-label {
-  display: block; margin-top: 8px;
-  font-size: 0.78rem; font-weight: 500;
+  display: block; margin-top: 4px;
+  font-size: 0.7rem; font-weight: 500;
   letter-spacing: 0.12em; text-transform: uppercase;
   color: var(--muted);
 }
 
-.count-note { margin-top: var(--sp-6); color: var(--muted); font-size: 0.95rem; }
+.count-note { margin-top: var(--sp-4); color: var(--muted); font-size: 0.9rem; }
+
+/* Huy hiệu lễ hội: chỉ hiện đúng đêm Trung Thu */
+.festival-badge {
+  display: inline-flex; align-items: center; gap: 14px;
+  margin-top: var(--sp-5, 20px);
+  padding: 12px 22px 12px 14px;
+  border: 1px solid oklch(85% 0.11 88 / 0.4);
+  border-radius: 999px;
+  background: oklch(20% 0.06 70 / 0.5);
+  color: var(--gold-200);
+  font-size: 1rem;
+  animation: badgeGlow 2.6s ease-in-out infinite alternate;
+}
+.festival-badge svg { width: 30px; height: auto; flex: none; }
+.festival-badge strong { color: var(--gold-300); font-weight: 600; }
+
+@keyframes badgeGlow {
+  from { box-shadow: 0 0 18px 2px oklch(80% 0.12 85 / 0.12); }
+  to   { box-shadow: 0 0 30px 8px oklch(80% 0.12 85 / 0.3); }
+}
 
 /* ---------- Tiêu đề section ---------- */
 
-.section-head { display: grid; gap: var(--sp-4); align-items: end; }
+.section-head { display: grid; gap: var(--sp-3); align-items: end; }
 .section-head h2 { font-size: var(--step-3); color: var(--cream); }
-.section-head .lede { margin-top: 0; }
+.section-head .lede { margin-top: 0; max-width: 52ch; }
 
-.legends, .customs { padding-block: clamp(80px, 9vw, 120px); }
-.legends { background: linear-gradient(180deg, var(--night-950), oklch(16% 0.042 283)); }
+/* ---------- MÀN 2 · Truyền thuyết ---------- */
 
-/* ---------- Truyền thuyết ---------- */
+.legends {
+  background:
+    radial-gradient(1000px 620px at 85% 0%, oklch(24% 0.05 290 / 0.4), transparent 62%),
+    linear-gradient(180deg, var(--night-950), oklch(16% 0.042 283));
+}
 
 @media (min-width: 881px) {
   .section-head { grid-template-columns: 1.1fr 1fr; gap: var(--sp-12); }
 }
 
-.story {
+.story-grid {
   display: grid;
-  grid-template-columns: 1.04fr 0.96fr;
-  gap: clamp(32px, 5vw, 64px);
-  align-items: center;
-  margin-top: clamp(44px, 6vw, 72px);
-}
-.story-art svg { width: 100%; height: auto; display: block; }
-.story-2 .story-art { order: 2; }
-
-.story-text h3 { font-size: var(--step-2); color: var(--gold-200); margin-bottom: var(--sp-4); }
-.story-text p { color: oklch(90% 0.02 90 / 0.95); }
-.story-sub { margin-top: var(--sp-3); color: var(--muted); font-style: italic; }
-
-/* ---------- Dàn rước đèn + bài hát ---------- */
-
-.song {
-  position: relative;
-  background: linear-gradient(180deg, oklch(20% 0.05 282), oklch(25% 0.055 278));
-  border-block: 1px solid var(--line);
-  padding-top: clamp(72px, 8vw, 104px);
-  overflow: hidden;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 26px;
 }
 
-.song-quote { width: min(780px, 90vw); margin: 0 auto; text-align: center; }
+.story {
+  display: flex; flex-direction: column;
+  background: oklch(19% 0.042 281 / 0.72);
+  border: 1px solid var(--line);
+  border-radius: var(--r-m);
+  padding: 18px 18px 20px;
+}
+.story-art svg { width: 100%; height: auto; max-height: 46dvh; display: block; margin-inline: auto; }
+
+.story-text { padding: 14px 4px 0; }
+.story-text h3 { font-size: var(--step-2); color: var(--gold-200); margin-bottom: var(--sp-3); }
+.story-text p { color: oklch(90% 0.02 90 / 0.95); font-size: 0.95rem; }
+.story-sub { margin-top: var(--sp-3); color: var(--muted); font-style: italic; font-size: 0.88rem; }
+
+/* Lời bài hát rước đèn */
+.song-quote { margin: 26px auto 0; width: min(760px, 100%); text-align: center; }
 .song-quote p {
   font-family: var(--font-display); font-style: italic; font-weight: 500;
-  font-size: clamp(1.5rem, 1.1rem + 2.4vw, 2.5rem);
-  line-height: 1.55;
+  font-size: clamp(1.25rem, 1rem + 1.4vw, 1.9rem);
+  line-height: 1.5;
   color: var(--gold-200);
   text-wrap: balance;
 }
 .song-quote figcaption {
-  margin-top: var(--sp-5, 20px);
-  color: var(--muted); font-size: 0.9rem; letter-spacing: 0.04em;
+  margin-top: var(--sp-3);
+  color: var(--muted); font-size: 0.85rem; letter-spacing: 0.04em;
 }
 
-.song-scene { margin-top: clamp(40px, 5vw, 60px); line-height: 0; }
-.song-scene svg { width: 100%; height: clamp(180px, 30vw, 300px); }
+/* Dàn rước đèn chạy sát đáy màn */
+.song-scene { line-height: 0; margin-top: 10px; }
+.song-scene svg { width: 100%; height: clamp(84px, 13dvh, 150px); }
 
-/* ---------- Phong tục: lưới bento ---------- */
+/* ---------- MÀN 3 · Phong tục: lưới bento ---------- */
 
-.customs { background: linear-gradient(180deg, oklch(16% 0.042 283), var(--night-950)); }
+.customs {
+  background:
+    radial-gradient(1000px 620px at 12% 0%, oklch(24% 0.05 290 / 0.35), transparent 62%),
+    linear-gradient(180deg, oklch(16% 0.042 283), var(--night-950));
+}
 
 .bento {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  gap: 20px;
-  margin-top: clamp(48px, 6vw, 72px);
+  gap: 18px;
+  margin-top: 26px;
 }
 
 .cell {
@@ -461,53 +517,54 @@ section[id] { scroll-margin-top: 84px; }
   background: oklch(20% 0.045 281);
   border: 1px solid var(--line);
   border-radius: var(--r-m);
-  padding: clamp(22px, 3vw, 32px);
+  padding: clamp(16px, 2vw, 26px);
   overflow: hidden;
   transition: transform 0.28s var(--ease-out-quart), border-color 0.28s var(--ease-out-quart);
 }
 .cell:hover { transform: translateY(-4px); border-color: oklch(85% 0.11 88 / 0.32); }
 
-.cell-cake { grid-column: span 7; grid-row: span 2; display: flex; flex-direction: column; }
-.cell-lion { grid-column: span 5; }
-.cell-parade { grid-column: span 5; }
-.cell-feast { grid-column: span 12; display: grid; grid-template-columns: 1.08fr 1fr; gap: clamp(24px, 4vw, 48px); align-items: center; }
+/* Bố cục màn: bánh (cao, trái) · lân + đèn (phải trên) · mâm cỗ (phải dưới) */
+.cell-cake { grid-column: span 5; grid-row: span 2; display: flex; flex-direction: column; }
+.cell-lion { grid-column: span 4; }
+.cell-parade { grid-column: span 3; }
+.cell-feast { grid-column: span 7; display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(16px, 2.4vw, 36px); align-items: center; }
 
-.cell-art { display: flex; justify-content: center; padding-block: var(--sp-3); }
+.cell-art { display: flex; justify-content: center; padding-block: var(--sp-2); }
 .cell-cake .cell-art { flex: 1; align-items: center; }
-.cake-pair { width: min(100%, 500px); height: auto; }
-.lion { width: min(100%, 250px); height: auto; }
-.feast-art svg { width: 100%; height: auto; max-height: 360px; }
+.cake-pair { width: min(100%, 400px); height: auto; }
+.lion { width: min(100%, 190px); height: auto; }
+.feast-art svg { width: 100%; height: auto; max-height: 30dvh; }
 
-.cell-body h3 { font-size: var(--step-1); color: var(--gold-200); margin-bottom: var(--sp-3); }
-.cell-body p { color: oklch(90% 0.02 90 / 0.92); font-size: 0.98rem; }
-.cell-cake .cell-body { margin-top: auto; padding-top: var(--sp-6); }
+.cell-body h3 { font-size: var(--step-1); color: var(--gold-200); margin-bottom: var(--sp-2); }
+.cell-body p { color: oklch(90% 0.02 90 / 0.92); font-size: 0.92rem; line-height: 1.6; }
+.cell-cake .cell-body { margin-top: auto; padding-top: var(--sp-4); }
+.cell-lion .cell-body, .cell-parade .cell-body { padding-top: var(--sp-2); }
 
 /* Bộ đèn treo trong thẻ rước đèn */
 .lantern-row {
   position: relative;
   display: flex; justify-content: center; align-items: flex-start;
-  gap: clamp(20px, 4vw, 48px);
-  padding-top: 30px;
+  gap: clamp(14px, 2vw, 30px);
+  padding-top: 26px;
 }
 .lantern-string {
   position: absolute; top: 0; left: 6%; right: 6%; height: 2px;
   background: linear-gradient(90deg, transparent, oklch(85% 0.11 88 / 0.5) 18% 82%, transparent);
 }
-.lr-star  { width: 78px; animation: swing 4.2s ease-in-out infinite alternate; transform-origin: 50% -10%; }
-.lr-round { width: 64px; animation: swing 3.6s ease-in-out infinite alternate -1.2s; transform-origin: 50% -12%; }
-.lr-carp  { width: 96px; animation: swing 4.8s ease-in-out infinite alternate -2.1s; transform-origin: 50% -18%; margin-top: 10px; }
+.lr-star  { width: 64px; animation: swing 4.2s ease-in-out infinite alternate; transform-origin: 50% -10%; }
+.lr-round { width: 54px; animation: swing 3.6s ease-in-out infinite alternate -1.2s; transform-origin: 50% -12%; }
+.lr-carp  { width: 80px; animation: swing 4.8s ease-in-out infinite alternate -2.1s; transform-origin: 50% -18%; margin-top: 8px; }
 
 @keyframes swing {
   from { transform: rotate(-6deg); }
   to   { transform: rotate(6deg); }
 }
 
-/* ---------- Thả đèn ước nguyện ---------- */
+/* ---------- MÀN 4 · Thả đèn ước nguyện ---------- */
 
 .wish {
   position: relative;
   overflow: hidden;
-  padding-top: clamp(88px, 10vw, 136px);
   background:
     radial-gradient(1.4px 1.4px at 22px 34px, oklch(92% 0.04 90 / 0.4), transparent),
     radial-gradient(1.2px 1.2px at 128px 92px, oklch(92% 0.04 90 / 0.3), transparent),
@@ -517,13 +574,15 @@ section[id] { scroll-margin-top: 84px; }
   background-size: 240px 200px, 240px 200px, 240px 200px, auto, auto;
 }
 
+.wish .wrap { display: flex; flex-direction: column; min-height: calc(100dvh - var(--nav-h) - 56px); }
+
 .wish .section-head { text-align: center; justify-items: center; }
 .wish .lede { margin-inline: auto; }
 
 .wish-form {
   display: flex; gap: var(--sp-3);
-  width: min(640px, 92vw);
-  margin: clamp(32px, 4vw, 48px) auto var(--sp-2);
+  width: min(640px, 100%);
+  margin: clamp(22px, 3vh, 36px) auto var(--sp-2);
 }
 .wish-form input {
   flex: 1; min-width: 0;
@@ -541,7 +600,7 @@ section[id] { scroll-margin-top: 84px; }
 
 .wish-live { text-align: center; min-height: 1.6em; color: var(--gold-200); font-size: 0.9rem; }
 
-.wish-sky { position: relative; height: clamp(380px, 55vh, 560px); margin-top: var(--sp-3); }
+.wish-sky { position: relative; flex: 1; min-height: 150px; margin-top: var(--sp-2); }
 
 .wl-tag {
   position: absolute; bottom: calc(100% + 10px); left: 50%;
@@ -559,88 +618,168 @@ section[id] { scroll-margin-top: 84px; }
   68% { opacity: 1; } 86% { opacity: 0; } 100% { opacity: 0; }
 }
 
-/* ---------- Chân trang ---------- */
-
-.footer {
+/* Chân trang nhỏ trong màn cuối */
+.mini-footer {
+  margin-top: var(--sp-6);
+  padding-block: var(--sp-5, 20px) var(--sp-4);
   border-top: 1px solid var(--line);
-  background: oklch(13% 0.035 284);
-  padding-block: clamp(56px, 7vw, 80px) clamp(44px, 5vw, 60px);
   text-align: center;
 }
-
-.footer-divider { display: block; width: 120px; margin-inline: auto; }
+.footer-divider { display: block; width: 96px; margin: 0 auto var(--sp-3); }
 .footer-line {
-  margin-top: var(--sp-6);
   font-family: var(--font-display); font-weight: 600;
-  font-size: var(--step-2); line-height: 1.35;
+  font-size: 1.3rem; line-height: 1.35;
   color: var(--gold-200);
 }
-.footer-small { margin-top: var(--sp-4); color: var(--muted); font-size: 0.9rem; }
+.footer-small { margin-top: var(--sp-2); color: var(--muted); font-size: 0.82rem; }
 
-.footer-top {
-  display: inline-flex; align-items: center; gap: 8px;
-  margin-top: var(--sp-8);
-  color: var(--gold-300); font-size: 0.9rem; font-weight: 500; text-decoration: none;
-  transition: color 0.2s var(--ease-out-quart), transform 0.2s var(--ease-out-quart);
+/* ---------- Lễ hội: pháo hoa + lời chúc ---------- */
+
+.fireworks {
+  position: fixed; inset: 0; z-index: 44;
+  pointer-events: none;
+  display: none;
 }
-.footer-top svg { width: 16px; height: 16px; }
-.footer-top:hover { color: var(--gold-200); transform: translateY(-2px); }
+body.festival .fireworks { display: block; }
+@media (prefers-reduced-motion: reduce) {
+  .fireworks { display: none !important; }
+}
 
-/* ---------- Hiện dần khi cuộn ---------- */
+.festival-toast {
+  position: fixed; left: 50%; bottom: 24px; z-index: 70;
+  transform: translate(-50%, 20px);
+  display: flex; align-items: center; gap: 14px;
+  max-width: min(480px, 92vw);
+  padding: 14px 16px;
+  background: oklch(19% 0.05 70 / 0.96);
+  border: 1px solid oklch(85% 0.11 88 / 0.4);
+  border-radius: var(--r-m);
+  box-shadow: var(--shadow-warm);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.5s var(--ease-out-quart), transform 0.5s var(--ease-out-quart);
+}
+.festival-toast.show { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+.festival-toast[hidden] { display: none; }
 
-.js .reveal { opacity: 0; transform: translateY(26px); }
+.ft-lantern { width: 34px; height: auto; flex: none; }
+.ft-text { display: grid; gap: 2px; }
+.ft-text strong { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; color: var(--gold-200); }
+.ft-text span { font-size: 0.85rem; color: var(--muted); }
+.ft-close {
+  align-self: flex-start;
+  margin-left: auto;
+  width: 28px; height: 28px;
+  display: grid; place-items: center;
+  border: 0; border-radius: 8px;
+  background: transparent; color: var(--muted);
+  font-size: 1.2rem; line-height: 1; cursor: pointer;
+  transition: background-color 0.2s var(--ease-out-quart), color 0.2s var(--ease-out-quart);
+}
+.ft-close:hover { background: oklch(85% 0.11 88 / 0.12); color: var(--cream); }
+
+/* ---------- Thanh tab dưới (di động) ---------- */
+
+.tabbar {
+  position: fixed; inset-inline: 0; bottom: 0; z-index: 50;
+  display: none;
+  background: oklch(15% 0.038 284 / 0.96);
+  border-top: 1px solid var(--line);
+  padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0px));
+}
+.tabbar a {
+  flex: 1;
+  min-width: 0;
+  display: grid; justify-items: center; gap: 2px;
+  padding: 6px 2px;
+  color: var(--muted); text-decoration: none;
+  font-size: 0.64rem; font-weight: 500;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  border-radius: var(--r-s);
+  transition: color 0.2s var(--ease-out-quart);
+}
+.tabbar a svg { width: 22px; height: 22px; }
+.tabbar a[aria-current="page"] { color: var(--gold-300); }
+
+/* ---------- Hiện dần khi vào màn ---------- */
+/* Dùng animation thay transition: nội dung không bao giờ kẹt ở trạng thái ẩn */
+
 .js .reveal.in {
-  opacity: 1; transform: none;
-  transition: opacity 0.65s var(--ease-out-quart), transform 0.65s var(--ease-out-quart);
-  transition-delay: var(--d, 0ms);
+  animation: revealIn 0.65s var(--ease-out-quart) both;
+  animation-delay: var(--d, 0ms);
+}
+
+@keyframes revealIn {
+  from { opacity: 0; transform: translateY(26px); }
+  to   { opacity: 1; transform: none; }
 }
 
 /* ---------- Responsive ---------- */
 
 @media (max-width: 980px) {
   .cell-cake { grid-column: span 12; grid-row: auto; }
-  .cell-lion, .cell-parade { grid-column: span 6; }
-  .cell-feast { grid-template-columns: 1fr; }
+  .cell-lion { grid-column: span 6; }
+  .cell-parade { grid-column: span 6; }
+  .cell-feast { grid-column: span 12; }
+  .story-grid { grid-template-columns: 1fr; }
+  .story-art svg { max-height: 34dvh; }
   .moon { width: clamp(200px, 38vw, 320px); }
 }
 
 @media (max-width: 880px) {
-  .story { grid-template-columns: 1fr; gap: var(--sp-6); }
-  .story-art { max-width: 440px; margin-inline: auto; }
-  .story-2 .story-art { order: 0; }
-  .hero { padding-top: 118px; }
+  .hero { padding-top: calc(var(--nav-h) + 24px); }
   .lede { max-width: 40ch; }
 }
 
 @media (max-width: 720px) {
   .nav-links { display: none; }
+  .btn-nav { display: none; }
   .cell-lion, .cell-parade { grid-column: span 12; }
-  .count-grid { display: grid; grid-template-columns: 1fr 1fr; width: min(420px, 92vw); }
-  .count-cell { padding: 14px 8px; }
+  .cell-feast { grid-template-columns: 1fr; }
+  .count-grid { display: grid; grid-template-columns: 1fr 1fr; width: min(380px, 100%); }
+  .count-cell { padding: 8px 6px; }
   .count-cell + .count-cell { border-left: 0; }
   .count-cell:nth-child(even) { border-left: 1px solid var(--line); }
   .count-cell:nth-child(n+3) { border-top: 1px solid var(--line); }
   .moon { width: 170px; top: 6dvh; right: 4vw; opacity: 0.97; }
   .hero-hint { display: none; }
+  .tabbar { display: flex; }
+  .screen-pad { padding-bottom: 96px; }
+  .hero { padding-bottom: 170px; }
+  .wish .wrap { min-height: calc(100dvh - var(--nav-h) - 140px); }
+  .festival-toast { bottom: 88px; }
 }
 
 @media (max-width: 480px) {
   .hero-cta { flex-direction: column; align-items: stretch; }
   .hero-cta .btn { justify-content: center; }
   .wish-form { flex-direction: column; }
-  .lantern-row { gap: 14px; }
-  .lr-star { width: 62px; } .lr-round { width: 52px; } .lr-carp { width: 78px; }
 }
 
-/* ---------- Tôn trọng người dùng giảm chuyển động ---------- */
+/* Màn hình laptop thấp: siết khoảng trắng để vừa một màn */
+@media (max-height: 780px) and (min-width: 981px) {
+  :root { --nav-h: 58px; }
+  .hero { padding-bottom: 120px; }
+  .story-art svg { max-height: 34dvh; }
+  .story-text p { font-size: 0.9rem; }
+  .song-quote { margin-top: 14px; }
+  .song-scene svg { height: clamp(64px, 9dvh, 100px); }
+  .cake-pair { width: min(100%, 330px); }
+  .lion { width: min(100%, 160px); }
+  .cell-body p { font-size: 0.86rem; }
+  .section-head h2 { font-size: clamp(1.7rem, 1.6rem + 0.8vw, 2.1rem); }
+  .screen-pad { padding-top: calc(var(--nav-h) + 18px); padding-bottom: 16px; }
+  .bento { margin-top: 18px; gap: 14px; }
+  .story-grid { margin-top: 18px; gap: 14px; }
+}
+
+/* ---------- Ưu tiên giảm chuyển động ---------- */
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
+    animation-delay: 0s !important;
     transition-duration: 0.01ms !important;
   }
+  .js .reveal.in { animation: none; }
   .fl, .wl { display: none; }
-  .cloud { opacity: 0.4; }
 }

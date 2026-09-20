@@ -6,9 +6,7 @@
   <title>Đêm Trăng Rằm · Tết Trung Thu 2026</title>
   <meta name="description" content="Đêm hội trăng rằm: truyền thuyết chị Hằng chú Cuội, múa lân, bánh nướng bánh dẻo và thả đèn ước nguyện. Đếm ngược tới Tết Trung Thu 25.09.2026.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2312101E'/%3E%3Ccircle cx='32' cy='32' r='17' fill='%23E8B45A'/%3E%3Ccircle cx='27' cy='27' r='3' fill='%23C98F35' opacity='.6'/%3E%3Ccircle cx='38' cy='38' r='2.2' fill='%23C98F35' opacity='.5'/%3E%3C/svg%3E">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Bodoni+Moda:ital,opsz,wght@0,6..96,600;0,6..96,700;1,6..96,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="fonts/fonts.css">
   <link rel="stylesheet" href="css/style.css">
   <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -101,25 +99,25 @@
 
   <header class="nav" id="top">
     <div class="nav-inner">
-      <a class="brand" href="#top">
+      <a class="brand" href="#/">
         <svg class="brand-moon" viewBox="0 0 32 32" aria-hidden="true">
           <path d="M24.5 20.8A11 11 0 0 1 11.2 7.5 11 11 0 1 0 24.5 20.8Z" fill="var(--gold-400)"/>
         </svg>
         <span>Đêm Trăng Rằm</span>
       </a>
-      <nav class="nav-links" aria-label="Mục lục">
-        <a href="#truyen-thuyet">Truyền thuyết</a>
-        <a href="#phong-tuc">Phong tục</a>
-        <a href="#uoc-nguyen">Ước nguyện</a>
+      <nav class="nav-links" aria-label="Các màn hình">
+        <a href="#/truyen-thuyet">Truyền thuyết</a>
+        <a href="#/phong-tuc">Phong tục</a>
+        <a href="#/uoc-nguyen">Ước nguyện</a>
       </nav>
-      <a class="btn btn-primary btn-nav" href="#uoc-nguyen">Thả đèn ước nguyện</a>
+      <a class="btn btn-primary btn-nav" href="#/uoc-nguyen">Thả đèn ước nguyện</a>
     </div>
   </header>
 
   <main id="main">
 
-    <!-- ================= HERO: sân khấu đêm trăng ================= -->
-    <section class="hero" id="dem-hoi" aria-label="Mở đầu">
+    <!-- ================= MÀN 1 · SÂN KHẤU ĐÊM TRĂNG ================= -->
+    <section class="hero screen" data-screen="home" id="dem-hoi" aria-label="Mở đầu">
       <canvas class="stars" id="stars" aria-hidden="true"></canvas>
 
       <div class="layer layer-clouds" aria-hidden="true">
@@ -184,8 +182,26 @@
         <h1 class="reveal" style="--d:90ms">Đêm hội<br><em>trăng rằm</em></h1>
         <p class="lede reveal" style="--d:180ms">Trăng tròn vành vạnh, đèn ông sao lung linh, mâm ngũ quả đã sẵn sàng cho đêm hội của cả nhà.</p>
         <div class="hero-cta reveal" style="--d:270ms">
-          <a class="btn btn-primary" href="#phong-tuc">Khám phá lễ hội</a>
-          <a class="btn btn-ghost" href="#uoc-nguyen">Thả đèn ước nguyện</a>
+          <a class="btn btn-primary" href="#/truyen-thuyet">Khám phá lễ hội</a>
+          <a class="btn btn-ghost" href="#/uoc-nguyen">Thả đèn ước nguyện</a>
+        </div>
+
+        <!-- Đếm ngược gọn ngay trong màn mở đầu -->
+        <div class="count-hero reveal" style="--d:380ms">
+          <div class="count-grid" role="timer" aria-label="Thời gian còn lại đến Tết Trung Thu">
+            <div class="count-cell"><span class="count-num" id="cdDays">05</span><span class="count-label">Ngày</span></div>
+            <div class="count-cell"><span class="count-num" id="cdHours">00</span><span class="count-label">Giờ</span></div>
+            <div class="count-cell"><span class="count-num" id="cdMins">00</span><span class="count-label">Phút</span></div>
+            <div class="count-cell"><span class="count-num" id="cdSecs">00</span><span class="count-label">Giây</span></div>
+          </div>
+          <p class="count-note" id="countNote">Còn bao lâu nữa tới rằm tháng Tám, thứ Sáu ngày 25.09.2026?</p>
+          <noscript><p class="count-note">Tết Trung Thu 2026 là thứ Sáu, ngày 25 tháng 9.</p></noscript>
+
+          <!-- Huy hiệu lễ hội: hiện đúng đêm Trung Thu -->
+          <div class="festival-badge" id="festivalBadge" hidden>
+            <svg viewBox="0 0 100 150" aria-hidden="true"><use href="#lantern-round"/></svg>
+            <span>Đêm hội đã đến — <strong>Chúc mừng Trung Thu!</strong></span>
+          </div>
         </div>
       </div>
 
@@ -222,29 +238,15 @@
       </div>
     </section>
 
-    <!-- ================= ĐẾM NGƯỢC ================= -->
-    <section class="countdown" id="dem-nguoc" aria-labelledby="count-title">
-      <div class="wrap">
-        <h2 class="count-title reveal" id="count-title">Đếm ngược đêm rằm</h2>
-        <div class="count-grid reveal" style="--d:100ms" role="timer" aria-label="Thời gian còn lại đến Tết Trung Thu">
-          <div class="count-cell"><span class="count-num" id="cdDays">05</span><span class="count-label">Ngày</span></div>
-          <div class="count-cell"><span class="count-num" id="cdHours">00</span><span class="count-label">Giờ</span></div>
-          <div class="count-cell"><span class="count-num" id="cdMins">00</span><span class="count-label">Phút</span></div>
-          <div class="count-cell"><span class="count-num" id="cdSecs">00</span><span class="count-label">Giây</span></div>
-        </div>
-        <p class="count-note reveal" id="countNote">Rằm tháng Tám âm lịch, thứ Sáu ngày 25 tháng 9 năm 2026.</p>
-        <noscript><p class="count-note">Tết Trung Thu 2026 là thứ Sáu, ngày 25 tháng 9.</p></noscript>
-      </div>
-    </section>
-
-    <!-- ================= TRUYỀN THUYẾT ================= -->
-    <section class="legends" id="truyen-thuyet" aria-labelledby="legends-title">
-      <div class="wrap">
+    <!-- ================= MÀN 2 · TRUYỀN THUYẾT ================= -->
+    <section class="legends screen" data-screen="truyen-thuyet" id="truyen-thuyet" aria-labelledby="legends-title">
+      <div class="wrap screen-pad center-col">
         <header class="section-head">
           <h2 class="reveal" id="legends-title">Truyền thuyết<br>đêm rằm</h2>
           <p class="lede reveal" style="--d:100ms">Mỗi dịp trăng tròn, ông bà ta lại kể những câu chuyện ngọt ngào đặt tên cho vầng trăng.</p>
         </header>
 
+        <div class="story-grid">
         <article class="story story-1 reveal">
           <div class="story-art" aria-hidden="true">
             <svg viewBox="0 0 420 480" role="img" aria-label="Minh họa chị Hằng Nga cùng chú thỏ ngọc">
@@ -358,12 +360,9 @@
             <p class="story-sub">Bóng cây đa xòe rộng trên mặt trăng chính là tán lá của cậu Cuội.</p>
           </div>
         </article>
-      </div>
-    </section>
+        </div>
 
-    <!-- ================= DÀN RƯỚC ĐÈN + BÀI HÁT ================= -->
-    <section class="song" aria-label="Bài hát rước đèn">
-      <figure class="song-quote reveal">
+        <figure class="song-quote reveal">
         <blockquote>
           <p>Tết trung thu rước đèn đi chơi,<br>
              tôi đèn cá chép, anh đèn sao,<br>
@@ -371,8 +370,9 @@
              lung linh sắc màu rực rỡ sao.</p>
         </blockquote>
         <figcaption>Trích bài "Múa lân", lời Phạm Tuyên</figcaption>
-      </figure>
-      <div class="song-scene" aria-hidden="true">
+        </figure>
+
+        <div class="song-scene" aria-hidden="true">
         <svg viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax slice">
           <g fill="#F6E7C4" opacity=".45">
             <circle cx="180" cy="60" r="2"/><circle cx="420" cy="40" r="1.6"/><circle cx="640" cy="76" r="2"/>
@@ -432,12 +432,13 @@
             <circle cx="360" cy="150" r="1.8"/><circle cx="940" cy="130" r="1.8"/><circle cx="480" cy="120" r="1.5"/>
           </g>
         </svg>
+        </div>
       </div>
     </section>
 
-    <!-- ================= PHONG TỤC ================= -->
-    <section class="customs" id="phong-tuc" aria-labelledby="customs-title">
-      <div class="wrap">
+    <!-- ================= MÀN 3 · PHONG TỤC ================= -->
+    <section class="customs screen" data-screen="phong-tuc" id="phong-tuc" aria-labelledby="customs-title">
+      <div class="wrap screen-pad center-col">
         <header class="section-head">
           <h2 class="reveal" id="customs-title">Phong tục<br>rằm tháng Tám</h2>
           <p class="lede reveal" style="--d:100ms">Đêm trung thu là đêm của trẻ thơ, của mâm cỗ, tiếng trống múa lân và những chiếc đèn ông sao.</p>
@@ -671,9 +672,9 @@
       </div>
     </section>
 
-    <!-- ================= THẢ ĐÈN ƯỚC NGUYỆN ================= -->
-    <section class="wish" id="uoc-nguyen" aria-labelledby="wish-title">
-      <div class="wrap">
+    <!-- ================= MÀN 4 · THẢ ĐÈN ƯỚC NGUYỆN ================= -->
+    <section class="wish screen" data-screen="uoc-nguyen" id="uoc-nguyen" aria-labelledby="wish-title">
+      <div class="wrap screen-pad">
         <header class="section-head">
           <h2 class="reveal" id="wish-title">Thả đèn<br>ước nguyện</h2>
           <p class="lede reveal" style="--d:100ms">Viết một điều ước, thả đèn lồng lên trời và để vầng trăng giữ giùm.</p>
@@ -689,27 +690,55 @@
         <p class="wish-live" id="wishLive" role="status" aria-live="polite"></p>
       </div>
       <div class="wish-sky" id="wishSky" aria-hidden="true"></div>
+
+      <!-- Chân trang nhỏ trong màn cuối -->
+      <footer class="mini-footer">
+        <svg class="footer-divider" viewBox="0 0 120 44" aria-hidden="true">
+          <circle cx="60" cy="22" r="14" fill="#F5EDDC" stroke="#D8C6A2" stroke-width="1.6"/>
+          <circle cx="60" cy="22" r="9" fill="none" stroke="#DCC9A0" stroke-width="1.4"/>
+          <path d="M60,16 C63,18 63,22 60,24 C59,22 59,19 60,16 Z" fill="#DCC9A0"/>
+          <path d="M6,22 C22,14 38,14 44,22 M116,22 C100,14 84,14 78,22" fill="none" stroke="#C98F35" stroke-width="1.6" stroke-linecap="round"/>
+          <circle cx="4" cy="22" r="2" fill="#C98F35"/><circle cx="116" cy="22" r="2" fill="#C98F35"/>
+        </svg>
+        <p class="footer-line">Trăng tròn, người trọn,<br>trung thu thật vui.</p>
+        <p class="footer-small">Đêm Trăng Rằm, một trang nhỏ chúc mừng Tết Trung Thu 2026.</p>
+      </footer>
     </section>
 
   </main>
 
-  <footer class="footer">
-    <div class="wrap footer-inner">
-      <svg class="footer-divider" viewBox="0 0 120 44" aria-hidden="true">
-        <circle cx="60" cy="22" r="14" fill="#F5EDDC" stroke="#D8C6A2" stroke-width="1.6"/>
-        <circle cx="60" cy="22" r="9" fill="none" stroke="#DCC9A0" stroke-width="1.4"/>
-        <path d="M60,16 C63,18 63,22 60,24 C59,22 59,19 60,16 Z" fill="#DCC9A0"/>
-        <path d="M6,22 C22,14 38,14 44,22 M116,22 C100,14 84,14 78,22" fill="none" stroke="#C98F35" stroke-width="1.6" stroke-linecap="round"/>
-        <circle cx="4" cy="22" r="2" fill="#C98F35"/><circle cx="116" cy="22" r="2" fill="#C98F35"/>
-      </svg>
-      <p class="footer-line">Trăng tròn, người trọn,<br>trung thu thật vui.</p>
-      <p class="footer-small">Đêm Trăng Rằm, một trang nhỏ chúc mừng Tết Trung Thu 2026.</p>
-      <a class="footer-top" href="#top">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V7m0 0-5 5m5-5 5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Về đầu trang
-      </a>
+  <!-- Pháo hoa cho đêm lễ hội (chỉ hoạt động đúng ngày Trung Thu hoặc ?party=1) -->
+  <canvas class="fireworks" id="fireworks" aria-hidden="true"></canvas>
+
+  <!-- Lời chúc đầu đêm hội -->
+  <div class="festival-toast" id="festivalToast" role="status" hidden>
+    <svg class="ft-lantern" viewBox="0 0 100 150" aria-hidden="true"><use href="#lantern-round"/></svg>
+    <div class="ft-text">
+      <strong>Rằm tháng Tám đã đến!</strong>
+      <span>Chúc mừng Trung Thu 2026 — trăng tròn, người trọn vẹn.</span>
     </div>
-  </footer>
+    <button class="ft-close" id="festivalToastClose" type="button" aria-label="Đóng lời chúc">×</button>
+  </div>
+
+  <!-- Thanh tab dưới cho di động -->
+  <nav class="tabbar" aria-label="Các màn hình">
+    <a href="#/" data-tab="home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M24.5 20.8A11 11 0 0 1 11.2 7.5 11 11 0 1 0 24.5 20.8Z" fill="currentColor"/></svg>
+      <span>Đêm hội</span>
+    </a>
+    <a href="#/truyen-thuyet" data-tab="truyen-thuyet">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="9" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M16 4v3M16 25v3M4 16h3M25 16h3M7.5 7.5l2.1 2.1M22.4 22.4l2.1 2.1M24.5 7.5l-2.1 2.1M9.6 22.4l-2.1 2.1" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+      <span>Truyền thuyết</span>
+    </a>
+    <a href="#/phong-tuc" data-tab="phong-tuc">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="10.5" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="16" cy="16" r="4.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M16 2.5v3" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+      <span>Phong tục</span>
+    </a>
+    <a href="#/uoc-nguyen" data-tab="uoc-nguyen">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4v20m0 0-6-6m6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 28h16" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>
+      <span>Ước nguyện</span>
+    </a>
+  </nav>
 
   <script src="js/main.js"></script>
 </body>
