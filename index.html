@@ -7,7 +7,7 @@
   <meta name="description" content="Đêm hội trăng rằm: truyền thuyết chị Hằng chú Cuội, múa lân, bánh nướng bánh dẻo và thả đèn ước nguyện. Đếm ngược tới Tết Trung Thu 25.09.2026.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2312101E'/%3E%3Ccircle cx='32' cy='32' r='17' fill='%23E8B45A'/%3E%3Ccircle cx='27' cy='27' r='3' fill='%23C98F35' opacity='.6'/%3E%3Ccircle cx='38' cy='38' r='2.2' fill='%23C98F35' opacity='.5'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="fonts/fonts.css?v=3">
-  <link rel="stylesheet" href="css/style.css?v=4">
+  <link rel="stylesheet" href="css/style.css?v=6">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -172,8 +172,14 @@
         <div class="fl" style="--x:22%; --s:30px; --t:26s; --d:4s">
           <div class="fl-sway"><svg viewBox="0 -14 120 142"><use href="#star-lantern"/></svg></div>
         </div>
+        <div class="fl" style="--x:41%; --s:26px; --t:29s; --d:12s">
+          <div class="fl-sway"><svg viewBox="0 0 100 150"><use href="#lantern-round"/></svg></div>
+        </div>
         <div class="fl" style="--x:70%; --s:36px; --t:23s; --d:8s">
           <div class="fl-sway"><svg viewBox="0 0 100 150"><use href="#lantern-round"/></svg></div>
+        </div>
+        <div class="fl" style="--x:86%; --s:32px; --t:19s; --d:15s">
+          <div class="fl-sway"><svg viewBox="0 -14 120 142"><use href="#star-lantern"/></svg></div>
         </div>
       </div>
 
@@ -688,6 +694,9 @@
           </button>
         </form>
         <p class="wish-live" id="wishLive" role="status" aria-live="polite"></p>
+        <div class="wish-actions">
+          <button class="btn btn-ghost btn-small" id="wishClear" type="button">Xoá đèn ước đã lưu</button>
+        </div>
       </div>
       <div class="wish-sky" id="wishSky" aria-hidden="true"></div>
 
@@ -741,6 +750,6 @@
     </a>
   </nav>
 
-  <script src="js/main.js?v=4"></script>
+  <script src="js/main.js?v=6"></script>
 </body>
 </html>

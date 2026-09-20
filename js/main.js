@@ -281,8 +281,8 @@
 
     // đèn ước nguyện: đám đông lần đầu, chen nhẹ các lần sau
     if (name === 'uoc-nguyen') {
-      if (!wishShownOnce) { wishShownOnce = true; crowdWishLanterns(16); }
-      else if (!wishSky || wishSky.children.length < 6) { crowdWishLanterns(6); }
+      if (!wishShownOnce) { wishShownOnce = true; crowdWishLanterns(22); }
+      else if (!wishSky || wishSky.children.length < 8) { crowdWishLanterns(8); }
       startWishAmbient();
     } else {
       stopWishAmbient();
@@ -371,7 +371,7 @@
 
   function spawnWishLantern(text, delay) {
     if (!wishSky || prefersReduced) return;
-    if (wishSky.children.length > 30) wishSky.firstElementChild.remove();
+    if (wishSky.children.length > 40) wishSky.firstElementChild.remove();
 
     var el = document.createElement('div');
     el.className = 'wl';
@@ -403,7 +403,7 @@
   }
 
   function seedWishLanterns() {
-    crowdWishLanterns(16);
+    crowdWishLanterns(22);
   }
 
   /* Đám đông thả đèn: n đèn nối đuôi nhau, nhịp ngẫu nhiên như nhiều người thả */
@@ -419,18 +419,94 @@
     if (prefersReduced) return;
     stopWishAmbient();
     wishTimer = setTimeout(function tick() {
-      if (current === 'uoc-nguyen' && wishSky && wishSky.children.length < 30) {
+      if (current === 'uoc-nguyen' && wishSky && wishSky.children.length < 40) {
         var list = currentWishes();
         spawnWishLantern(list[Math.floor(Math.random() * list.length)], 0);
-        if (Math.random() < 0.55) {
-          spawnWishLantern(list[Math.floor(Math.random() * list.length)], rand(150, 700));
+        if (Math.random() < 0.6) {
+          spawnWishLantern(list[Math.floor(Math.random() * list.length)], rand(150, 650));
         }
       }
-      wishTimer = setTimeout(tick, rand(1600, 3000));
-    }, 1200);
+      wishTimer = setTimeout(tick, rand(1300, 2400));
+    }, 1000);
   }
   function stopWishAmbient() {
     if (wishTimer) { clearTimeout(wishTimer); wishTimer = null; }
+  }
+
+  /* ---------- Nhạc nền tự sinh (WebAudio, không cần file) ---------- */
+
+  function MusicBox() {
+    var ctx = null, master = null, timer = null, padOn = false, on = false;
+    var NOTES = [261.63, 293.66, 329.63, 392.0, 440.0, 523.25]; /* ngũ cung Đô */
+
+    function ensure() {
+      if (ctx) return true;
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return false;
+      ctx = new AC();
+      master = ctx.createGain();
+      master.gain.value = 0;
+      master.connect(ctx.destination);
+      return true;
+    }
+
+    function pluck(freq, when, vol) {
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      var o2 = ctx.createOscillator(), g2 = ctx.createGain();
+      o.type = 'sine'; o.frequency.value = freq;
+      o2.type = 'triangle'; o2.frequency.value = freq * 2; g2.gain.value = 0.1;
+      g.gain.setValueAtTime(0.0001, when);
+      g.gain.linearRampToValueAtTime(vol, when + 0.025);
+      g.gain.exponentialRampToValueAtTime(0.0001, when + 3);
+      o.connect(g); o2.connect(g2); g2.connect(g); g.connect(master);
+      o.start(when); o2.start(when);
+      o.stop(when + 3.1); o2.stop(when + 3.1);
+    }
+
+    function pad() {
+      if (padOn) return;
+      padOn = true;
+      var o1 = ctx.createOscillator(), o2 = ctx.createOscillator(), g = ctx.createGain();
+      o1.type = 'sine'; o1.frequency.value = 130.81;
+      o2.type = 'sine'; o2.frequency.value = 196.0;
+      g.gain.value = 0.045;
+      var lfo = ctx.createOscillator(), lg = ctx.createGain();
+      lfo.frequency.value = 0.07; lg.gain.value = 0.02;
+      lfo.connect(lg); lg.connect(g.gain);
+      o1.connect(g); o2.connect(g); g.connect(master);
+      o1.start(); o2.start(); lfo.start();
+    }
+
+    function schedule() {
+      timer = setTimeout(function () {
+        var t = ctx.currentTime;
+        pluck(NOTES[Math.floor(Math.random() * NOTES.length)], t, 0.15);
+        if (Math.random() < 0.4) {
+          pluck(NOTES[Math.floor(Math.random() * NOTES.length)], t + 0.34, 0.09);
+        }
+        schedule();
+      }, rand(1700, 3800));
+    }
+
+    this.start = function () {
+      if (!ensure()) return;
+      if (ctx.state === 'suspended') ctx.resume();
+      if (on) return;
+      on = true;
+      pad();
+      master.gain.cancelScheduledValues(ctx.currentTime);
+      master.gain.setValueAtTime(master.gain.value, ctx.currentTime);
+      master.gain.linearRampToValueAtTime(0.5, ctx.currentTime + 1.4);
+      schedule();
+    };
+    this.stop = function () {
+      if (!ctx || !on) return;
+      on = false;
+      master.gain.cancelScheduledValues(ctx.currentTime);
+      master.gain.setValueAtTime(master.gain.value, ctx.currentTime);
+      master.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.5);
+      if (timer) { clearTimeout(timer); timer = null; }
+    };
   }
 
   /* ---------- Khởi tạo ---------- */
@@ -470,6 +546,57 @@
       document.addEventListener('pointerdown', function () { orb.classList.add('is-down'); });
       document.addEventListener('pointerup', function () { orb.classList.remove('is-down'); });
 
+      /* Đuôi sao lấp lánh rơi theo chuyển động chuột */
+      var sparkleCanvas = document.createElement('canvas');
+      sparkleCanvas.className = 'sparkles';
+      document.body.appendChild(sparkleCanvas);
+      var sctx = sparkleCanvas.getContext('2d');
+      var sp = [], lastSX = -1, lastSY = -1, sRun = false;
+
+      function sResize() {
+        var dpr2 = Math.min(window.devicePixelRatio || 1, 2);
+        sparkleCanvas.width = window.innerWidth * dpr2;
+        sparkleCanvas.height = window.innerHeight * dpr2;
+        sctx.setTransform(dpr2, 0, 0, dpr2, 0, 0);
+      }
+      sResize();
+      window.addEventListener('resize', sResize);
+
+      function sFrame() {
+        sctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        for (var i = sp.length - 1; i >= 0; i--) {
+          var p = sp[i];
+          p.x += p.vx; p.y += p.vy; p.vy += 0.045; p.life -= 0.018;
+          if (p.life <= 0) { sp.splice(i, 1); continue; }
+          sctx.globalAlpha = Math.max(0, p.life);
+          sctx.fillStyle = p.col;
+          sctx.beginPath();
+          sctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          sctx.fill();
+        }
+        sctx.globalAlpha = 1;
+        if (sp.length) { requestAnimationFrame(sFrame); }
+        else { sRun = false; sctx.clearRect(0, 0, window.innerWidth, window.innerHeight); }
+      }
+
+      document.addEventListener('pointermove', function (e) {
+        if (lastSX >= 0) {
+          var dx = e.clientX - lastSX, dy = e.clientY - lastSY;
+          var n = Math.min(3, Math.floor(Math.sqrt(dx * dx + dy * dy) / 16));
+          for (var k = 0; k < n; k++) {
+            if (sp.length > 90) sp.shift();
+            sp.push({
+              x: e.clientX + rand(-4, 4), y: e.clientY + rand(-4, 4),
+              vx: rand(-0.4, 0.4), vy: rand(-0.5, 0.25),
+              r: rand(0.8, 2.1), life: rand(0.55, 1),
+              col: Math.random() < 0.75 ? '#F4C87E' : '#FFF3D6'
+            });
+          }
+          if (sp.length && !sRun) { sRun = true; requestAnimationFrame(sFrame); }
+        }
+        lastSX = e.clientX; lastSY = e.clientY;
+      });
+
       (function follow() {
         ox += (mx - ox) * 0.16;
         oy += (my - oy) * 0.16;
@@ -504,7 +631,7 @@
 
       function spawnHeroLantern() {
         if (!heroVisible) return;
-        var cap = festivalMode ? 10 : 7;
+        var cap = festivalMode ? 12 : 10;
         if (heroBox.querySelectorAll('.fl[data-js]').length >= cap) return;
         var el = document.createElement('div');
         el.className = 'fl';
@@ -524,12 +651,32 @@
 
       (function loop() {
         spawnHeroLantern();
-        var wait = festivalMode ? rand(1100, 2100) : rand(2600, 4400);
+        var wait = festivalMode ? rand(1000, 1900) : rand(1700, 3000);
         setTimeout(loop, wait);
       })();
 
       window.setFestivalLanterns = function (on) { festivalMode = on; };
     }
+
+    /* ---------- Nhạc nền: tự phát khi vào trang ----------
+       Trình duyệt chặn tiếng trước cú chạm đầu tiên, nên:
+       thử phát ngay — nếu bị treo ở trạng thái suspended thì
+       cú chạm/click/phím đầu tiên sẽ đánh thức nó. Không cần nút. */
+
+    var music = new MusicBox();
+
+    var kick = function () {
+      document.removeEventListener('pointerdown', kick);
+      document.removeEventListener('keydown', kick);
+      document.removeEventListener('touchstart', kick);
+      music.start();
+    };
+    document.addEventListener('pointerdown', kick);
+    document.addEventListener('keydown', kick);
+    document.addEventListener('touchstart', kick, { passive: true });
+
+    // nhiều trình duyệt cho phép nếu người dùng đã từng tương tác với trang này
+    try { music.start(); } catch (e) { /* im lặng, chờ kick */ }
 
     /* ---------- Đếm ngược + đêm lễ hội ---------- */
 
@@ -644,6 +791,20 @@
         liveTimer = setTimeout(function () { live.textContent = ''; }, 4500);
 
         form.reset();
+        input.focus();
+      });
+    }
+
+    /* Xoá các đèn ước đã lưu trong máy (điều ước test, chữ lạ...) */
+    var clearBtn = document.getElementById('wishClear');
+    if (clearBtn && live) {
+      clearBtn.addEventListener('click', function () {
+        try { window.localStorage.removeItem(STORE_KEY); } catch (e) { /* bỏ qua */ }
+        if (wishSky) wishSky.innerHTML = '';
+        crowdWishLanterns(8);
+        live.textContent = 'Đã xoá các đèn ước đã lưu — thả điều ước mới nhé.';
+        clearTimeout(liveTimer);
+        liveTimer = setTimeout(function () { live.textContent = ''; }, 4500);
         input.focus();
       });
     }
