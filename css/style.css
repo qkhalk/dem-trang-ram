@@ -140,9 +140,8 @@ a { color: var(--gold-300); }
 }
 
 @keyframes screenIn {
-  from { opacity: 0; transform: translateY(26px) scale(0.984); filter: blur(7px); }
-  60%  { filter: blur(0); }
-  to   { opacity: 1; transform: none; filter: blur(0); }
+  from { opacity: 0; transform: translateY(26px) scale(0.984); }
+  to   { opacity: 1; transform: none; }
 }
 
 /* Màn nội dung (trừ home) chừa chỗ cho thanh nav cố định */
@@ -287,8 +286,8 @@ body:not([data-screen="home"]) .nav {
 .moon-art { position: absolute; inset: 7%; width: 86%; height: 86%; opacity: 0.96; }
 
 @keyframes moonLife {
-  from { transform: translateY(0); filter: brightness(1); }
-  to   { transform: translateY(-10px); filter: brightness(1.06); }
+  from { transform: translateY(0); }
+  to   { transform: translateY(-10px); }
 }
 
 /* Đêm lễ hội: trăng rực hơn */
@@ -672,8 +671,7 @@ body.cursor-live .cursor-orb, body.cursor-live .cursor-dot { opacity: 1; }
 .cursor-orb {
   width: 96px; height: 96px; border-radius: 50%;
   transform: translate(-50%, -50%);
-  background: radial-gradient(circle, oklch(88% 0.12 90 / 0.32), oklch(82% 0.12 86 / 0.1) 48%, transparent 72%);
-  mix-blend-mode: screen;
+  background: radial-gradient(circle, oklch(90% 0.12 90 / 0.28), oklch(82% 0.12 86 / 0.09) 48%, transparent 72%);
   transition:
     opacity 0.3s var(--ease-out-quart),
     width 0.25s var(--ease-out-quart),
@@ -682,7 +680,7 @@ body.cursor-live .cursor-orb, body.cursor-live .cursor-dot { opacity: 1; }
 }
 .cursor-orb.is-hover {
   width: 150px; height: 150px;
-  background: radial-gradient(circle, oklch(90% 0.13 92 / 0.42), oklch(84% 0.13 88 / 0.14) 50%, transparent 74%);
+  background: radial-gradient(circle, oklch(92% 0.13 92 / 0.34), oklch(84% 0.13 88 / 0.12) 50%, transparent 74%);
 }
 .cursor-orb.is-down { width: 64px; height: 64px; }
 

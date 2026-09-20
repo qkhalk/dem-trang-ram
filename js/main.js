@@ -371,7 +371,7 @@
 
   function spawnWishLantern(text, delay) {
     if (!wishSky || prefersReduced) return;
-    if (wishSky.children.length > 40) wishSky.firstElementChild.remove();
+    if (wishSky.children.length > 28) wishSky.firstElementChild.remove();
 
     var el = document.createElement('div');
     el.className = 'wl';
@@ -419,7 +419,7 @@
     if (prefersReduced) return;
     stopWishAmbient();
     wishTimer = setTimeout(function tick() {
-      if (current === 'uoc-nguyen' && wishSky && wishSky.children.length < 40) {
+      if (current === 'uoc-nguyen' && wishSky && wishSky.children.length < 28) {
         var list = currentWishes();
         spawnWishLantern(list[Math.floor(Math.random() * list.length)], 0);
         if (Math.random() < 0.6) {
@@ -437,7 +437,14 @@
 
   function MusicBox() {
     var ctx = null, master = null, timer = null, padOn = false, on = false;
-    var NOTES = [261.63, 293.66, 329.63, 392.0, 440.0, 523.25]; /* ngũ cung Đô */
+    /* Ngũ cung Đô ở bậc cao — sáng, vui, đúng không khí hội hè */
+    var NOTES = [523.25, 587.33, 659.25, 783.99, 880.0, 1046.5]; /* C5 D5 E5 G5 A5 C6 */
+    var MELODY = [
+      2, 2, 4, 3,  2, 0, 1, 2,   3, null, 3, 4,   5, 4, 3, 2,
+      1, 2, 3, 1,  0, null, 0, 1,   2, 3, 2, 1,   0, null, 3, null
+    ];
+    var STEP = 265; /* ms mỗi nốt — nhịp bước vui */
+    var stepIdx = 0;
 
     function ensure() {
       if (ctx) return true;
@@ -451,41 +458,45 @@
     }
 
     function pluck(freq, when, vol) {
-      var o = ctx.createOscillator(), g = ctx.createGain();
-      var o2 = ctx.createOscillator(), g2 = ctx.createGain();
-      o.type = 'sine'; o.frequency.value = freq;
-      o2.type = 'triangle'; o2.frequency.value = freq * 2; g2.gain.value = 0.1;
+      var g = ctx.createGain();
+      var o = ctx.createOscillator(), o2 = ctx.createOscillator(), o3 = ctx.createOscillator();
+      var g2 = ctx.createGain(), g3 = ctx.createGain();
+      o.type = 'triangle'; o.frequency.value = freq;
+      o2.type = 'sine'; o2.frequency.value = freq * 2; g2.gain.value = 0.16;
+      o3.type = 'sine'; o3.frequency.value = freq * 3; g3.gain.value = 0.05;
       g.gain.setValueAtTime(0.0001, when);
-      g.gain.linearRampToValueAtTime(vol, when + 0.025);
-      g.gain.exponentialRampToValueAtTime(0.0001, when + 3);
-      o.connect(g); o2.connect(g2); g2.connect(g); g.connect(master);
-      o.start(when); o2.start(when);
-      o.stop(when + 3.1); o2.stop(when + 3.1);
+      g.gain.linearRampToValueAtTime(vol, when + 0.012);
+      g.gain.exponentialRampToValueAtTime(0.0001, when + 0.95);
+      o.connect(g); o2.connect(g2); o3.connect(g3); g2.connect(g); g3.connect(g); g.connect(master);
+      o.start(when); o2.start(when); o3.start(when);
+      o.stop(when + 1.05); o2.stop(when + 1.05); o3.stop(when + 1.05);
     }
 
     function pad() {
       if (padOn) return;
       padOn = true;
       var o1 = ctx.createOscillator(), o2 = ctx.createOscillator(), g = ctx.createGain();
-      o1.type = 'sine'; o1.frequency.value = 130.81;
-      o2.type = 'sine'; o2.frequency.value = 196.0;
-      g.gain.value = 0.045;
+      o1.type = 'sine'; o1.frequency.value = 261.63;
+      o2.type = 'sine'; o2.frequency.value = 392.0;
+      g.gain.value = 0.022;
       var lfo = ctx.createOscillator(), lg = ctx.createGain();
-      lfo.frequency.value = 0.07; lg.gain.value = 0.02;
+      lfo.frequency.value = 0.35; lg.gain.value = 0.01;
       lfo.connect(lg); lg.connect(g.gain);
       o1.connect(g); o2.connect(g); g.connect(master);
       o1.start(); o2.start(); lfo.start();
     }
 
     function schedule() {
-      timer = setTimeout(function () {
-        var t = ctx.currentTime;
-        pluck(NOTES[Math.floor(Math.random() * NOTES.length)], t, 0.15);
-        if (Math.random() < 0.4) {
-          pluck(NOTES[Math.floor(Math.random() * NOTES.length)], t + 0.34, 0.09);
+      timer = setTimeout(function tick() {
+        var t = ctx.currentTime + 0.04;
+        var step = MELODY[stepIdx % MELODY.length];
+        if (step != null) {
+          pluck(NOTES[step], t, 0.16);
+          if (Math.random() < 0.3) pluck(NOTES[step] * 2, t + STEP / 2000, 0.05);
         }
-        schedule();
-      }, rand(1700, 3800));
+        stepIdx++;
+        timer = setTimeout(tick, STEP);
+      }, 250);
     }
 
     this.start = function () {
@@ -496,7 +507,7 @@
       pad();
       master.gain.cancelScheduledValues(ctx.currentTime);
       master.gain.setValueAtTime(master.gain.value, ctx.currentTime);
-      master.gain.linearRampToValueAtTime(0.5, ctx.currentTime + 1.4);
+      master.gain.linearRampToValueAtTime(0.5, ctx.currentTime + 1.2);
       schedule();
     };
     this.stop = function () {
