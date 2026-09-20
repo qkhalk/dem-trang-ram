@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đêm Trăng Rằm · Tết Trung Thu 2026</title>
+  <meta name="description" content="Đêm hội trăng rằm: truyền thuyết chị Hằng chú Cuội, múa lân, bánh nướng bánh dẻo và thả đèn ước nguyện. Đếm ngược tới Tết Trung Thu 25.09.2026.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2312101E'/%3E%3Ccircle cx='32' cy='32' r='17' fill='%23E8B45A'/%3E%3Ccircle cx='27' cy='27' r='3' fill='%23C98F35' opacity='.6'/%3E%3Ccircle cx='38' cy='38' r='2.2' fill='%23C98F35' opacity='.5'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Bodoni+Moda:ital,opsz,wght@0,6..96,600;0,6..96,700;1,6..96,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+  <!-- Kho định nghĩa dùng chung: gradient + symbol đèn (được <use> ở nhiều nơi, kể cả JS) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="glowGold" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#FFD98A" stop-opacity=".85"/>
+        <stop offset="55%" stop-color="#F4B95C" stop-opacity=".28"/>
+        <stop offset="100%" stop-color="#F4B95C" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="glowRed" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#FF8A5E" stop-opacity=".8"/>
+        <stop offset="55%" stop-color="#D4502F" stop-opacity=".3"/>
+        <stop offset="100%" stop-color="#D4502F" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="lanternBody" cx="42%" cy="36%" r="75%">
+        <stop offset="0%" stop-color="#E9603F"/>
+        <stop offset="60%" stop-color="#C43E2F"/>
+        <stop offset="100%" stop-color="#98281D"/>
+      </radialGradient>
+      <linearGradient id="starGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#EF6A45"/>
+        <stop offset="100%" stop-color="#B23123"/>
+      </linearGradient>
+      <linearGradient id="carpGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#E4573B"/>
+        <stop offset="62%" stop-color="#C43E2F"/>
+        <stop offset="100%" stop-color="#E8B45A"/>
+      </linearGradient>
+
+      <!-- Đèn lồng tròn -->
+      <symbol id="lantern-round" viewBox="0 0 100 150">
+        <ellipse cx="50" cy="58" rx="40" ry="42" fill="url(#glowRed)"/>
+        <line x1="50" y1="2" x2="50" y2="13" stroke="#C98F35" stroke-width="2"/>
+        <rect x="35" y="12" width="30" height="8" rx="3" fill="#C98F35" stroke="#3B2314" stroke-width="2"/>
+        <ellipse cx="50" cy="58" rx="30" ry="33" fill="url(#lanternBody)" stroke="#3B2314" stroke-width="2.5"/>
+        <path d="M50,25 C33,44 33,72 50,91" fill="none" stroke="#8E241A" stroke-width="2" opacity=".85"/>
+        <path d="M50,25 C67,44 67,72 50,91" fill="none" stroke="#8E241A" stroke-width="2" opacity=".85"/>
+        <ellipse cx="50" cy="58" rx="14" ry="32" fill="none" stroke="#8E241A" stroke-width="1.6" opacity=".7"/>
+        <rect x="40" y="89" width="20" height="7" rx="3" fill="#C98F35" stroke="#3B2314" stroke-width="2"/>
+        <line x1="50" y1="96" x2="50" y2="112" stroke="#C98F35" stroke-width="2"/>
+        <circle cx="50" cy="116" r="4" fill="#E8B45A" stroke="#3B2314" stroke-width="1.5"/>
+        <path d="M46,120 L43,138 M50,120 L50,142 M54,120 L57,138" stroke="#D89A3F" stroke-width="2" stroke-linecap="round" fill="none"/>
+      </symbol>
+
+      <!-- Đèn ông sao -->
+      <symbol id="star-lantern" viewBox="0 -14 120 142">
+        <circle cx="60" cy="54" r="34" fill="url(#glowGold)"/>
+        <line x1="60" y1="-10" x2="60" y2="7" stroke="#C98F35" stroke-width="2"/>
+        <polygon points="60,6 72.9,40.2 109.5,41.9 80.9,64.8 90.6,100.1 60,80 29.4,100.1 39.1,64.8 10.5,41.9 47.1,40.2"
+                 fill="url(#starGrad)" stroke="#E8B45A" stroke-width="2" stroke-linejoin="round"/>
+        <g stroke="#F6DFA6" stroke-width="1.4" opacity=".8">
+          <line x1="60" y1="58" x2="60" y2="8"/><line x1="60" y1="58" x2="108.5" y2="42"/>
+          <line x1="60" y1="58" x2="89.6" y2="98.6"/><line x1="60" y1="58" x2="30.4" y2="98.6"/>
+          <line x1="60" y1="58" x2="11.5" y2="42"/>
+        </g>
+        <circle cx="60" cy="58" r="12" fill="#FFD980" opacity=".55"/>
+        <circle cx="60" cy="58" r="6.5" fill="#FFE9A8"/>
+        <g fill="#E8B45A">
+          <circle cx="60" cy="6" r="2.6"/><circle cx="109.5" cy="41.9" r="2.6"/><circle cx="90.6" cy="100.1" r="2.6"/>
+          <circle cx="29.4" cy="100.1" r="2.6"/><circle cx="10.5" cy="41.9" r="2.6"/>
+        </g>
+        <line x1="60" y1="100" x2="60" y2="110" stroke="#C98F35" stroke-width="2"/>
+        <circle cx="60" cy="114" r="3.5" fill="#E8B45A"/>
+        <path d="M57,118 L55,130 M60,118 L60,132 M63,118 L65,130" stroke="#D89A3F" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+      </symbol>
+
+      <!-- Đèn cá chép -->
+      <symbol id="carp-lantern" viewBox="0 -8 150 112">
+        <ellipse cx="72" cy="50" rx="62" ry="36" fill="url(#glowRed)"/>
+        <path d="M58,16 L70,0 L82,17 Z" fill="#C43E2F" stroke="#3B2314" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M112,44 L140,26 L131,50 L140,74 L112,56 Z" fill="url(#carpGrad)" stroke="#3B2314" stroke-width="2.4" stroke-linejoin="round"/>
+        <path d="M18,50 C18,26 44,14 74,18 C98,21 112,34 114,50 C112,66 98,79 74,82 C44,86 18,74 18,50 Z"
+              fill="url(#carpGrad)" stroke="#3B2314" stroke-width="2.4"/>
+        <path d="M56,66 L46,86 L66,74 Z" fill="#E8B45A" stroke="#3B2314" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M48,32 C42,44 42,58 48,68" fill="none" stroke="#8E241A" stroke-width="2" opacity=".55"/>
+        <path d="M62,32 C70,44 70,58 62,68 M78,28 C88,42 88,60 78,72 M94,32 C102,42 102,58 94,68"
+              fill="none" stroke="#8E241A" stroke-width="2" opacity=".7"/>
+        <circle cx="36" cy="42" r="5" fill="#2A160C"/>
+        <circle cx="34.5" cy="40" r="1.6" fill="#FFF6E4"/>
+        <path d="M17,46 L7,41 M17,54 L7,59" stroke="#3B2314" stroke-width="2" stroke-linecap="round" fill="none"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <a class="skip-link" href="#main">Tới nội dung</a>
+
+  <header class="nav" id="top">
+    <div class="nav-inner">
+      <a class="brand" href="#top">
+        <svg class="brand-moon" viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M24.5 20.8A11 11 0 0 1 11.2 7.5 11 11 0 1 0 24.5 20.8Z" fill="var(--gold-400)"/>
+        </svg>
+        <span>Đêm Trăng Rằm</span>
+      </a>
+      <nav class="nav-links" aria-label="Mục lục">
+        <a href="#truyen-thuyet">Truyền thuyết</a>
+        <a href="#phong-tuc">Phong tục</a>
+        <a href="#uoc-nguyen">Ước nguyện</a>
+      </nav>
+      <a class="btn btn-primary btn-nav" href="#uoc-nguyen">Thả đèn ước nguyện</a>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ================= HERO: sân khấu đêm trăng ================= -->
+    <section class="hero" id="dem-hoi" aria-label="Mở đầu">
+      <canvas class="stars" id="stars" aria-hidden="true"></canvas>
+
+      <div class="layer layer-clouds" aria-hidden="true">
+        <svg class="cloud cloud-1" viewBox="0 0 220 60">
+          <ellipse cx="60" cy="42" rx="52" ry="16" fill="currentColor"/>
+          <ellipse cx="110" cy="32" rx="46" ry="18" fill="currentColor"/>
+          <ellipse cx="166" cy="44" rx="42" ry="13" fill="currentColor"/>
+        </svg>
+        <svg class="cloud cloud-2" viewBox="0 0 260 70">
+          <ellipse cx="70" cy="48" rx="60" ry="17" fill="currentColor"/>
+          <ellipse cx="132" cy="36" rx="54" ry="20" fill="currentColor"/>
+          <ellipse cx="200" cy="50" rx="48" ry="14" fill="currentColor"/>
+        </svg>
+        <svg class="cloud cloud-3" viewBox="0 0 180 54">
+          <ellipse cx="50" cy="36" rx="44" ry="14" fill="currentColor"/>
+          <ellipse cx="96" cy="28" rx="40" ry="16" fill="currentColor"/>
+          <ellipse cx="140" cy="38" rx="34" ry="11" fill="currentColor"/>
+        </svg>
+      </div>
+
+      <div class="layer layer-moon" aria-hidden="true">
+        <div class="moon">
+          <svg class="moon-art" viewBox="0 0 400 400">
+            <g fill="var(--moon-ink)">
+              <!-- cây đa -->
+              <path d="M96,400 C104,344 90,312 104,270 C110,248 126,236 144,232 C168,228 200,228 222,234 C242,240 254,254 258,272 C268,316 256,354 264,400 L238,400 C232,356 238,322 230,288 L154,288 C146,322 152,356 146,400 Z"/>
+              <circle cx="182" cy="190" r="54"/><circle cx="238" cy="172" r="60"/>
+              <circle cx="292" cy="202" r="46"/><circle cx="146" cy="220" r="36"/>
+              <path d="M142,246 C140,274 144,300 140,326 M222,252 C224,280 220,306 224,332 M182,254 C182,284 180,312 182,338"
+                    fill="none" stroke="var(--moon-ink)" stroke-width="5" stroke-linecap="round"/>
+              <!-- cành cây + chú Cuội -->
+              <path d="M162,314 C206,302 248,304 284,318" fill="none" stroke="var(--moon-ink)" stroke-width="12" stroke-linecap="round"/>
+              <circle cx="224" cy="284" r="10"/>
+              <path d="M213,294 Q224,286 235,294 L237,314 Q224,320 211,314 Z"/>
+              <path d="M217,314 L214,332 M231,314 L234,332" stroke="var(--moon-ink)" stroke-width="6.5" stroke-linecap="round" fill="none"/>
+              <!-- chú thỏ ngọc -->
+              <path d="M316,362 C316,342 332,332 348,336 C362,340 368,354 366,366 C364,378 351,384 337,384 C324,384 316,376 316,362 Z"/>
+              <circle cx="328" cy="340" r="12"/>
+              <ellipse cx="321" cy="318" rx="4.4" ry="15" transform="rotate(-16 321 318)"/>
+              <ellipse cx="332" cy="316" rx="4.4" ry="15" transform="rotate(8 332 316)"/>
+              <circle cx="368" cy="360" r="5.5"/>
+              <ellipse cx="334" cy="378" rx="8" ry="4.5"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="layer layer-lanterns" id="heroLanterns" aria-hidden="true">
+        <div class="fl" style="--x:9%; --s:44px; --t:21s; --d:0s">
+          <div class="fl-sway"><svg viewBox="0 0 100 150"><use href="#lantern-round"/></svg></div>
+        </div>
+        <div class="fl" style="--x:22%; --s:30px; --t:26s; --d:4s">
+          <div class="fl-sway"><svg viewBox="0 -14 120 142"><use href="#star-lantern"/></svg></div>
+        </div>
+        <div class="fl" style="--x:70%; --s:36px; --t:23s; --d:8s">
+          <div class="fl-sway"><svg viewBox="0 0 100 150"><use href="#lantern-round"/></svg></div>
+        </div>
+      </div>
+
+      <div class="hero-content">
+        <p class="eyebrow reveal">Rằm tháng Tám · Thứ Sáu 25.09.2026</p>
+        <h1 class="reveal" style="--d:90ms">Đêm hội<br><em>trăng rằm</em></h1>
+        <p class="lede reveal" style="--d:180ms">Trăng tròn vành vạnh, đèn ông sao lung linh, mâm ngũ quả đã sẵn sàng cho đêm hội của cả nhà.</p>
+        <div class="hero-cta reveal" style="--d:270ms">
+          <a class="btn btn-primary" href="#phong-tuc">Khám phá lễ hội</a>
+          <a class="btn btn-ghost" href="#uoc-nguyen">Thả đèn ước nguyện</a>
+        </div>
+      </div>
+
+      <p class="hero-hint" aria-hidden="true">Chạm vào bầu trời để thấy sao băng</p>
+
+      <div class="hero-skyline" aria-hidden="true">
+        <svg viewBox="0 0 1440 200" preserveAspectRatio="xMidYMax slice">
+          <g fill="var(--sil)">
+            <path d="M0,200 V156 H70 V128 H120 V120 H150 V156 H210 V140 H260 V172 H330 V150 H390 V178 H470 V138 H520 V170 H600 V152 H640 V150 C660,126 700,120 720,150 L704,150 C700,138 660,138 656,150 L656,180 H730 V160 H790 V184 H860 V142 H910 V172 H990 V156 H1050 V182 H1130 V148 H1180 V174 H1260 V158 H1320 V186 H1390 V150 H1440 V200 Z"/>
+            <!-- cây đa góc phải -->
+            <path d="M1288,200 C1292,164 1286,146 1294,122 C1298,108 1308,100 1320,98 L1342,98 C1354,100 1362,108 1366,122 C1372,146 1366,164 1370,200 Z"/>
+            <circle cx="1328" cy="90" r="34"/><circle cx="1298" cy="104" r="24"/><circle cx="1360" cy="106" r="22"/>
+            <!-- hai bạn nhỏ rước đèn -->
+            <g>
+              <circle cx="240" cy="158" r="9"/>
+              <path d="M231,167 Q240,160 249,167 L251,186 Q240,192 229,186 Z"/>
+              <path d="M234,186 L231,200 M247,186 L250,200" stroke="var(--sil)" stroke-width="5" stroke-linecap="round" fill="none"/>
+              <path d="M248,172 L264,158" stroke="var(--sil)" stroke-width="5" stroke-linecap="round" fill="none"/>
+              <path d="M264,158 L268,132" stroke="#D8C6A2" stroke-width="2" stroke-linecap="round" fill="none"/>
+            </g>
+            <g>
+              <circle cx="312" cy="162" r="8"/>
+              <path d="M304,170 Q312,164 320,170 L322,188 Q312,193 302,188 Z"/>
+              <path d="M306,188 L304,201 M318,188 L320,201" stroke="var(--sil)" stroke-width="5" stroke-linecap="round" fill="none"/>
+              <path d="M303,175 L289,162" stroke="var(--sil)" stroke-width="5" stroke-linecap="round" fill="none"/>
+              <path d="M289,162 L285,138" stroke="#D8C6A2" stroke-width="2" stroke-linecap="round" fill="none"/>
+            </g>
+          </g>
+          <circle class="glow-pulse" cx="268" cy="118" r="17" fill="url(#glowRed)"/>
+          <use href="#lantern-round" x="249" y="88" width="38" height="57"/>
+          <circle class="glow-pulse" cx="283" cy="124" r="14" fill="url(#glowGold)" style="animation-delay:-1.2s"/>
+          <use href="#star-lantern" x="266" y="94" width="34" height="40"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ================= ĐẾM NGƯỢC ================= -->
+    <section class="countdown" id="dem-nguoc" aria-labelledby="count-title">
+      <div class="wrap">
+        <h2 class="count-title reveal" id="count-title">Đếm ngược đêm rằm</h2>
+        <div class="count-grid reveal" style="--d:100ms" role="timer" aria-label="Thời gian còn lại đến Tết Trung Thu">
+          <div class="count-cell"><span class="count-num" id="cdDays">05</span><span class="count-label">Ngày</span></div>
+          <div class="count-cell"><span class="count-num" id="cdHours">00</span><span class="count-label">Giờ</span></div>
+          <div class="count-cell"><span class="count-num" id="cdMins">00</span><span class="count-label">Phút</span></div>
+          <div class="count-cell"><span class="count-num" id="cdSecs">00</span><span class="count-label">Giây</span></div>
+        </div>
+        <p class="count-note reveal" id="countNote">Rằm tháng Tám âm lịch, thứ Sáu ngày 25 tháng 9 năm 2026.</p>
+        <noscript><p class="count-note">Tết Trung Thu 2026 là thứ Sáu, ngày 25 tháng 9.</p></noscript>
+      </div>
+    </section>
+
+    <!-- ================= TRUYỀN THUYẾT ================= -->
+    <section class="legends" id="truyen-thuyet" aria-labelledby="legends-title">
+      <div class="wrap">
+        <header class="section-head">
+          <h2 class="reveal" id="legends-title">Truyền thuyết<br>đêm rằm</h2>
+          <p class="lede reveal" style="--d:100ms">Mỗi dịp trăng tròn, ông bà ta lại kể những câu chuyện ngọt ngào đặt tên cho vầng trăng.</p>
+        </header>
+
+        <article class="story story-1 reveal">
+          <div class="story-art" aria-hidden="true">
+            <svg viewBox="0 0 420 480" role="img" aria-label="Minh họa chị Hằng Nga cùng chú thỏ ngọc">
+              <defs>
+                <radialGradient id="panelMoon" cx="42%" cy="38%" r="75%">
+                  <stop offset="0%" stop-color="#F6DFA6"/>
+                  <stop offset="70%" stop-color="#E8B45A"/>
+                  <stop offset="100%" stop-color="#C98F35"/>
+                </radialGradient>
+              </defs>
+              <rect x="10" y="10" width="400" height="460" rx="14" fill="#181534"/>
+              <rect x="10" y="10" width="400" height="460" rx="14" fill="none" stroke="#C98F35" stroke-opacity=".4" stroke-width="1.5"/>
+              <g fill="#F6E7C4" opacity=".5">
+                <circle cx="60" cy="60" r="2"/><circle cx="120" cy="40" r="1.6"/><circle cx="360" cy="52" r="2.2"/>
+                <circle cx="330" cy="240" r="1.8"/><circle cx="80" cy="200" r="1.6"/><circle cx="374" cy="330" r="2"/>
+                <circle cx="52" cy="330" r="1.7"/><circle cx="150" cy="70" r="1.4"/>
+              </g>
+              <circle cx="210" cy="196" r="122" fill="url(#panelMoon)"/>
+              <circle cx="168" cy="150" r="17" fill="#C98F35" opacity=".18"/>
+              <circle cx="258" cy="238" r="12" fill="#C98F35" opacity=".15"/>
+              <circle cx="232" cy="140" r="9" fill="#C98F35" opacity=".14"/>
+              <!-- chị Hằng -->
+              <g>
+                <path d="M170,300 C118,332 82,374 64,416 C104,410 142,398 170,384 Z" fill="#E2A94F" opacity=".9"/>
+                <path d="M186,150 C120,150 84,196 66,248 C54,282 58,318 76,346" fill="none" stroke="#C43E2F" stroke-width="8" stroke-linecap="round"/>
+                <path d="M258,148 C324,156 356,204 366,256 C374,296 366,336 344,362" fill="none" stroke="#C43E2F" stroke-width="8" stroke-linecap="round"/>
+                <path d="M238,140 C262,132 286,120 300,102" fill="none" stroke="#E2A94F" stroke-width="26" stroke-linecap="round"/>
+                <path d="M196,142 C172,150 156,166 150,184" fill="none" stroke="#E2A94F" stroke-width="24" stroke-linecap="round"/>
+                <path d="M196,128 C176,140 168,168 164,206 C158,268 150,330 142,392 C176,410 260,410 296,392 C286,330 278,268 272,206 C268,168 262,140 244,128 C236,136 204,136 196,128 Z" fill="#E2A94F"/>
+                <path d="M200,240 C196,290 190,340 184,382 M240,238 C244,288 250,338 256,380 M220,250 C220,300 220,350 220,392" fill="none" stroke="#181534" stroke-width="2" opacity=".75"/>
+                <path d="M150,388 C186,404 258,404 292,388" fill="none" stroke="#F6E7C4" stroke-width="3"/>
+                <path d="M176,220 C210,232 246,232 280,220" fill="none" stroke="#C43E2F" stroke-width="10" stroke-linecap="round"/>
+                <circle cx="238" cy="96" r="14" fill="#E2A94F"/>
+                <circle cx="222" cy="112" r="20" fill="#E2A94F"/>
+                <circle cx="302" cy="100" r="7" fill="#E2A94F"/>
+                <path d="M300,100 C312,88 318,74 316,60" fill="none" stroke="#7C5A26" stroke-width="3" stroke-linecap="round"/>
+                <g>
+                  <circle cx="318" cy="56" r="5.5" fill="#C43E2F"/><circle cx="318" cy="56" r="1.8" fill="#E8B45A"/>
+                  <circle cx="308" cy="70" r="4.2" fill="#C43E2F"/><circle cx="308" cy="70" r="1.5" fill="#E8B45A"/>
+                  <circle cx="323" cy="80" r="3.6" fill="#C43E2F"/><circle cx="323" cy="80" r="1.3" fill="#E8B45A"/>
+                </g>
+                <path d="M150,186 L128,214 A26,26 0 0 0 172,214 Z" fill="#F3E3BC" stroke="#C98F35" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M140,196 L150,212 M150,190 L160,210" stroke="#C98F35" stroke-width="1.5"/>
+              </g>
+              <!-- mây và thỏ -->
+              <g>
+                <ellipse cx="210" cy="416" rx="122" ry="24" fill="#242048"/>
+                <ellipse cx="118" cy="422" rx="50" ry="17" fill="#242048"/>
+                <ellipse cx="304" cy="422" rx="54" ry="17" fill="#242048"/>
+                <g fill="#F3E3BC">
+                  <path d="M268,414 C268,398 282,390 296,394 C308,398 313,410 311,420 C299,428 276,428 268,414 Z"/>
+                  <circle cx="274" cy="398" r="9"/>
+                  <ellipse cx="269" cy="384" rx="3.4" ry="10.5" transform="rotate(-15 269 384)"/>
+                  <ellipse cx="277" cy="382" rx="3.4" ry="10.5" transform="rotate(8 277 382)"/>
+                  <circle cx="313" cy="412" r="4"/>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <div class="story-text">
+            <h3>Chị Hằng và chú thỏ ngọc</h3>
+            <p>Thuở ấy, chị Hằng tình cờ uống chiếc thuốc trường sinh rồi nhẹ nhàng bay lên cung trăng. Từ đó, đêm nào chị cũng ngồi đan áo bên chú thỏ ngọc, soi bóng xuống trần gian trong những đêm rằm thật sáng.</p>
+            <p class="story-sub">Ngắm kỹ vầng trăng tháng Tám, ta thấy bóng chị tóc xõa, thỏ trắng ngồi gõ cối giã thuốc.</p>
+          </div>
+        </article>
+
+        <article class="story story-2 reveal">
+          <div class="story-art" aria-hidden="true">
+            <svg viewBox="0 0 420 480" role="img" aria-label="Minh họa chú Cuội ngồi dưới gốc cây đa trên cung trăng">
+              <rect x="10" y="10" width="400" height="460" rx="14" fill="#181534"/>
+              <rect x="10" y="10" width="400" height="460" rx="14" fill="none" stroke="#C98F35" stroke-opacity=".4" stroke-width="1.5"/>
+              <g fill="#F6E7C4" opacity=".5">
+                <circle cx="70" cy="66" r="2"/><circle cx="150" cy="44" r="1.6"/><circle cx="252" cy="60" r="1.8"/>
+                <circle cx="70" cy="300" r="1.7"/><circle cx="368" cy="220" r="2"/><circle cx="340" cy="60" r="1.5"/>
+              </g>
+              <circle cx="316" cy="112" r="56" fill="url(#panelMoon)"/>
+              <circle cx="300" cy="98" r="9" fill="#C98F35" opacity=".16"/>
+              <circle cx="334" cy="130" r="6" fill="#C98F35" opacity=".14"/>
+              <path d="M0,414 C80,384 160,402 240,390 C320,378 380,400 420,392 L420,470 L0,470 Z" fill="#1E1A3C"/>
+              <!-- cây đa -->
+              <g>
+                <path d="M150,442 C158,362 142,322 158,270 C166,240 190,222 218,216 L262,216 C288,222 306,242 312,270 C324,324 308,364 316,442 L288,442 C282,382 288,342 278,302 L190,302 C180,342 186,382 180,442 Z" fill="#E2A94F"/>
+                <path d="M198,330 C196,364 200,398 196,432 M252,334 C254,368 250,402 254,436" fill="none" stroke="#C98F35" stroke-width="4" stroke-linecap="round"/>
+                <g fill="#E2A94F" opacity=".95">
+                  <circle cx="232" cy="198" r="64"/><circle cx="168" cy="222" r="46"/><circle cx="296" cy="226" r="44"/>
+                  <circle cx="196" cy="168" r="38"/><circle cx="268" cy="166" r="36"/>
+                </g>
+                <path d="M240,302 C286,292 330,298 368,316" fill="none" stroke="#E2A94F" stroke-width="12" stroke-linecap="round"/>
+              </g>
+              <!-- chú Cuội -->
+              <g fill="#F6E7C4">
+                <circle cx="326" cy="272" r="9"/>
+                <path d="M316,282 Q326,274 336,282 L338,300 Q326,306 314,300 Z"/>
+                <path d="M320,300 L317,316 M332,300 L335,316" stroke="#F6E7C4" stroke-width="6" stroke-linecap="round" fill="none"/>
+                <path d="M318,286 L302,268" stroke="#F6E7C4" stroke-width="5" stroke-linecap="round" fill="none"/>
+                <path d="M302,268 C296,258 296,248 304,240" fill="none" stroke="#F3E3BC" stroke-width="2"/>
+              </g>
+              <!-- chó vàng -->
+              <g fill="#E2A94F">
+                <ellipse cx="128" cy="414" rx="17" ry="9"/>
+                <circle cx="146" cy="406" r="7"/>
+                <path d="M148,400 C152,396 156,397 157,401" fill="none" stroke="#E2A94F" stroke-width="4" stroke-linecap="round"/>
+                <path d="M114,410 C107,404 106,398 110,393" fill="none" stroke="#E2A94F" stroke-width="4" stroke-linecap="round"/>
+                <path d="M120,420 L118,434 M136,420 L138,434" stroke="#E2A94F" stroke-width="4" stroke-linecap="round" fill="none"/>
+              </g>
+            </svg>
+          </div>
+          <div class="story-text">
+            <h3>Chú Cuội ngồi cây đa</h3>
+            <p>Trên cung trăng còn có cậu Cuội giữ cây đa thần. Chờ sợ cây bay lên trời, cậu buộc mình chặt vào rễ cây rồi ngồi đó tua tủa ngắm trần gian. Con chó vàng trung thành cũng theo cậu lên ở cùng.</p>
+            <p class="story-sub">Bóng cây đa xòe rộng trên mặt trăng chính là tán lá của cậu Cuội.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= DÀN RƯỚC ĐÈN + BÀI HÁT ================= -->
+    <section class="song" aria-label="Bài hát rước đèn">
+      <figure class="song-quote reveal">
+        <blockquote>
+          <p>Tết trung thu rước đèn đi chơi,<br>
+             tôi đèn cá chép, anh đèn sao,<br>
+             cùng cầm tay nhau vui ca múa nhảy,<br>
+             lung linh sắc màu rực rỡ sao.</p>
+        </blockquote>
+        <figcaption>Trích bài "Múa lân", lời Phạm Tuyên</figcaption>
+      </figure>
+      <div class="song-scene" aria-hidden="true">
+        <svg viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax slice">
+          <g fill="#F6E7C4" opacity=".45">
+            <circle cx="180" cy="60" r="2"/><circle cx="420" cy="40" r="1.6"/><circle cx="640" cy="76" r="2"/>
+            <circle cx="760" cy="36" r="1.7"/><circle cx="880" cy="70" r="1.5"/><circle cx="1120" cy="50" r="2"/>
+          </g>
+          <circle cx="1020" cy="86" r="48" fill="url(#panelMoon)"/>
+          <circle cx="1004" cy="72" r="8" fill="#C98F35" opacity=".16"/>
+          <circle cx="1038" cy="100" r="5.5" fill="#C98F35" opacity=".14"/>
+          <path d="M0,218 L46,218 L46,192 L96,192 L96,218 L168,218 L168,204 L236,204 L236,218 L300,218
+                   C306,196 330,188 348,196 C362,188 384,192 392,206 L392,218 L470,218 L470,196 L540,196 L540,218 L620,218
+                   L620,206 L700,206 L700,218 L790,218 L790,198 L860,198 L860,218 L940,218 L940,208 L1020,208 L1020,218
+                   L1100,218 L1100,200 L1160,200 L1160,218 L1200,218 L1200,300 L0,300 Z" fill="#191532" opacity=".8"/>
+          <rect y="240" width="1200" height="60" fill="var(--sil)"/>
+          <!-- cây đa trái -->
+          <g fill="var(--sil)">
+            <path d="M120,300 C128,236 116,204 130,164 C138,140 158,128 178,124 L216,124 C238,128 254,142 260,164 C272,204 260,236 268,300 L236,300 C230,256 236,226 228,196 L164,196 C156,226 162,256 156,300 Z"/>
+            <circle cx="196" cy="112" r="54"/><circle cx="146" cy="132" r="38"/><circle cx="246" cy="134" r="36"/>
+          </g>
+          <!-- các bạn nhỏ rước đèn -->
+          <g fill="var(--sil)">
+            <g>
+              <circle cx="560" cy="196" r="11"/>
+              <path d="M548,208 Q560,200 572,208 L574,240 Q560,248 546,240 Z"/>
+              <path d="M552,240 L548,262 M568,240 L574,262" stroke="var(--sil)" stroke-width="6" stroke-linecap="round" fill="none"/>
+              <path d="M570,214 L592,192" stroke="var(--sil)" stroke-width="6" stroke-linecap="round" fill="none"/>
+              <path d="M592,192 L600,152" stroke="#D8C6A2" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+            </g>
+            <g>
+              <circle cx="680" cy="200" r="10"/>
+              <path d="M670,210 Q680,203 690,210 L692,240 Q680,247 668,240 Z"/>
+              <path d="M672,240 L668,262 M688,240 L692,262" stroke="var(--sil)" stroke-width="6" stroke-linecap="round" fill="none"/>
+              <path d="M672,216 L656,200" stroke="var(--sil)" stroke-width="6" stroke-linecap="round" fill="none"/>
+              <path d="M656,200 L650,166" stroke="#D8C6A2" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+            </g>
+            <g>
+              <circle cx="790" cy="206" r="9"/>
+              <path d="M782,214 Q790,208 798,214 L800,240 Q790,246 780,240 Z"/>
+              <path d="M784,240 L780,260 M796,240 L800,260" stroke="var(--sil)" stroke-width="6" stroke-linecap="round" fill="none"/>
+              <path d="M796,218 L816,202" stroke="var(--sil)" stroke-width="6" stroke-linecap="round" fill="none"/>
+              <path d="M816,202 L822,172" stroke="#D8C6A2" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+            </g>
+            <!-- chó nhỏ -->
+            <g>
+              <ellipse cx="880" cy="248" rx="16" ry="9"/>
+              <circle cx="897" cy="239" r="7"/>
+              <path d="M864,242 C856,234 856,226 862,221" fill="none" stroke="var(--sil)" stroke-width="4" stroke-linecap="round"/>
+              <path d="M870,254 L868,266 M890,254 L892,266" stroke="var(--sil)" stroke-width="4" stroke-linecap="round" fill="none"/>
+            </g>
+          </g>
+          <circle class="glow-pulse" cx="600" cy="136" r="22" fill="url(#glowGold)"/>
+          <use href="#star-lantern" x="576" y="106" width="48" height="57"/>
+          <circle class="glow-pulse" cx="650" cy="152" r="20" fill="url(#glowRed)" style="animation-delay:-.8s"/>
+          <use href="#lantern-round" x="630" y="120" width="40" height="60"/>
+          <circle class="glow-pulse" cx="822" cy="158" r="20" fill="url(#glowRed)" style="animation-delay:-1.6s"/>
+          <use href="#carp-lantern" x="788" y="140" width="68" height="45"/>
+          <g fill="#F4B95C" opacity=".8">
+            <circle cx="360" cy="150" r="1.8"/><circle cx="940" cy="130" r="1.8"/><circle cx="480" cy="120" r="1.5"/>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ================= PHONG TỤC ================= -->
+    <section class="customs" id="phong-tuc" aria-labelledby="customs-title">
+      <div class="wrap">
+        <header class="section-head">
+          <h2 class="reveal" id="customs-title">Phong tục<br>rằm tháng Tám</h2>
+          <p class="lede reveal" style="--d:100ms">Đêm trung thu là đêm của trẻ thơ, của mâm cỗ, tiếng trống múa lân và những chiếc đèn ông sao.</p>
+        </header>
+
+        <div class="bento">
+          <article class="cell cell-cake reveal">
+            <div class="cell-art" aria-hidden="true">
+              <svg class="cake-pair" viewBox="0 0 520 300" role="img" aria-label="Bánh nướng và bánh dẻo trung thu">
+                <defs>
+                  <radialGradient id="cakeBaked" cx="40%" cy="34%" r="80%">
+                    <stop offset="0%" stop-color="#E0A45C"/>
+                    <stop offset="62%" stop-color="#C27A35"/>
+                    <stop offset="100%" stop-color="#9C5A22"/>
+                  </radialGradient>
+                  <radialGradient id="cakeSnow" cx="42%" cy="36%" r="78%">
+                    <stop offset="0%" stop-color="#FBF6EA"/>
+                    <stop offset="70%" stop-color="#F5EDDC"/>
+                    <stop offset="100%" stop-color="#E9DDC2"/>
+                  </radialGradient>
+                </defs>
+                <ellipse cx="260" cy="272" rx="210" ry="16" fill="#0D0B18" opacity=".55"/>
+                <!-- bánh nướng -->
+                <g>
+                  <circle cx="150" cy="172" r="92" fill="#8F4E1D"/>
+                  <circle cx="150" cy="158" r="92" fill="url(#cakeBaked)" stroke="#7A3F16" stroke-width="3"/>
+                  <g fill="#6B3512">
+                    <circle cx="212" cy="158" r="3.2"/>
+                    <circle cx="212" cy="158" r="3.2" transform="rotate(22.5 150 158)"/>
+                    <circle cx="212" cy="158" r="3.2" transform="rotate(45 150 158)"/>
+                    <circle cx="212" cy="158" r="3.2" transform="rotate(67.5 150 158)"/>
+                    <circle cx="212" cy="158" r="3.2" transform="rotate(90 150 158)"/>
+                    <circle cx="212" cy="158" r="3.2" transform="rotate(112.5 150 158)"/>
+                    <circle cx="212" cy="158" r="3.2" transform="rotate(135 150 158)"/>
+                    <circle cx="212" cy="158" r="3.2" transform="rotate(157.5 150 158)"/>
+                    <circle cx="212" cy="158" r="3.2" transform="rotate(180 150 158)"/>
+                    <circle cx="212" cy="158" r="3.2" transform="rotate(202.5 150 158)"/>
+                    <circle cx="212" cy="158" r="3.2" transform="rotate(225 150 158)"/>
+                    <circle cx="212" cy="158" r="3.2" transform="rotate(247.5 150 158)"/>
+                    <circle cx="212" cy="158" r="3.2" transform="rotate(270 150 158)"/>
+                    <circle cx="212" cy="158" r="3.2" transform="rotate(292.5 150 158)"/>
+                    <circle cx="212" cy="158" r="3.2" transform="rotate(315 150 158)"/>
+                    <circle cx="212" cy="158" r="3.2" transform="rotate(337.5 150 158)"/>
+                  </g>
+                  <rect x="112" y="120" width="76" height="76" rx="10" fill="#D98E3F" stroke="#6B3512" stroke-width="2.5"/>
+                  <text x="150" y="166" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="16" font-weight="bold" letter-spacing="1" fill="#6B3512">Trung Thu</text>
+                </g>
+                <!-- bánh dẻo -->
+                <g>
+                  <path d="M400,74 A18,18 0 0 1 431.4,84.4 A18,18 0 0 1 455.6,119 A18,18 0 0 1 425.6,138.6
+                           A18,18 0 0 1 400,160 A18,18 0 0 1 374.4,138.6 A18,18 0 0 1 344.4,119 A18,18 0 0 1 368.6,84.4 A18,18 0 0 1 400,74 Z"
+                        transform="translate(0,44)" fill="url(#cakeSnow)" stroke="#D8C6A2" stroke-width="3" stroke-linejoin="round"/>
+                  <circle cx="400" cy="163" r="54" fill="none" stroke="#D8C6A2" stroke-width="2"/>
+                  <g fill="#B78D52">
+                    <path d="M364,182 C364,162 380,152 398,157 C416,162 422,178 419,192 C416,206 400,213 384,213 C369,213 364,202 364,182 Z"/>
+                    <circle cx="376" cy="162" r="11"/>
+                    <ellipse cx="371" cy="148" rx="3.8" ry="12" transform="rotate(-16 371 148)"/>
+                    <ellipse cx="381" cy="146" rx="3.8" ry="12" transform="rotate(8 381 146)"/>
+                    <circle cx="421" cy="184" r="5.5"/>
+                  </g>
+                  <g>
+                    <g fill="#C39B62">
+                      <ellipse cx="432" cy="144" rx="4.6" ry="7.5" transform="rotate(-18 432 144)"/>
+                      <ellipse cx="442" cy="151" rx="4.6" ry="7.5" transform="rotate(54 442 151)"/>
+                      <ellipse cx="438" cy="162" rx="4.6" ry="7.5" transform="rotate(126 438 162)"/>
+                      <ellipse cx="426" cy="160" rx="4.6" ry="7.5" transform="rotate(198 426 160)"/>
+                      <ellipse cx="421" cy="149" rx="4.6" ry="7.5" transform="rotate(270 421 149)"/>
+                    </g>
+                    <circle cx="431.5" cy="153" r="3" fill="#C9B080"/>
+                  </g>
+                  <path d="M362,222 C374,229 388,231 394,231 M428,222 C421,227 411,230 404,231" fill="none" stroke="#D8C6A2" stroke-width="2" stroke-linecap="round"/>
+                </g>
+              </svg>
+            </div>
+            <div class="cell-body">
+              <h3>Bánh nướng, bánh dẻo</h3>
+              <p>Chiếc bánh tròn như vầng trăng, gói trọn nhân đậu xanh, lòng đỏ trứng và tấm lòng người làm bánh. Cắn một miếng, ngọt ngào lan tới đó, sum vầy theo tới đó.</p>
+            </div>
+          </article>
+
+          <article class="cell cell-lion reveal" style="--d:90ms">
+            <div class="cell-art" aria-hidden="true">
+              <svg class="lion" viewBox="0 0 220 230" role="img" aria-label="Đầu ông lân">
+                <!-- vành lông vàng -->
+                <path d="M110,38 A20.5,20.5 0 0 1 149,48.5 A20.5,20.5 0 0 1 177.5,77 A20.5,20.5 0 0 1 188,116 A20.5,20.5 0 0 1 177.5,155 A20.5,20.5 0 0 1 149,183.5 A20.5,20.5 0 0 1 110,194 A20.5,20.5 0 0 1 71,183.5 A20.5,20.5 0 0 1 42.5,155 A20.5,20.5 0 0 1 32,116 A20.5,20.5 0 0 1 42.5,77 A20.5,20.5 0 0 1 71,48.5 A20.5,20.5 0 0 1 110,38 Z"
+                      fill="#E8B45A" stroke="#3B2314" stroke-width="2.5"/>
+                <!-- vành lông đỏ -->
+                <path d="M110,56 A15.5,15.5 0 0 1 140,64 A15.5,15.5 0 0 1 162,86 A15.5,15.5 0 0 1 170,116 A15.5,15.5 0 0 1 162,146 A15.5,15.5 0 0 1 140,168 A15.5,15.5 0 0 1 110,176 A15.5,15.5 0 0 1 80,168 A15.5,15.5 0 0 1 58,146 A15.5,15.5 0 0 1 50,116 A15.5,15.5 0 0 1 58,86 A15.5,15.5 0 0 1 80,64 A15.5,15.5 0 0 1 110,56 Z"
+                      fill="#C43E2F" stroke="#3B2314" stroke-width="2.5"/>
+                <!-- sừng và tai -->
+                <path d="M110,46 C100,30 104,12 118,4 C112,18 114,32 122,46 Z" fill="#E8B45A" stroke="#3B2314" stroke-width="2.2" stroke-linejoin="round"/>
+                <circle cx="70" cy="62" r="10" fill="#C43E2F" stroke="#3B2314" stroke-width="2.2"/>
+                <circle cx="150" cy="62" r="10" fill="#C43E2F" stroke="#3B2314" stroke-width="2.2"/>
+                <!-- mặt -->
+                <circle cx="110" cy="120" r="54" fill="#F6E7C8" stroke="#3B2314" stroke-width="3"/>
+                <path d="M80,102 C88,84 132,84 140,102 C130,112 90,112 80,102 Z" fill="#C43E2F" stroke="#3B2314" stroke-width="2.2" stroke-linejoin="round"/>
+                <circle cx="110" cy="94" r="6" fill="#E8B45A" stroke="#3B2314" stroke-width="1.8"/>
+                <!-- mắt -->
+                <g>
+                  <path d="M72,108 C80,100 96,100 104,108" fill="none" stroke="#C43E2F" stroke-width="5" stroke-linecap="round"/>
+                  <path d="M116,108 C124,100 140,100 148,108" fill="none" stroke="#C43E2F" stroke-width="5" stroke-linecap="round"/>
+                  <ellipse cx="88" cy="118" rx="13" ry="15" fill="#FFF9EC" stroke="#3B2314" stroke-width="2.6"/>
+                  <ellipse cx="132" cy="118" rx="13" ry="15" fill="#FFF9EC" stroke="#3B2314" stroke-width="2.6"/>
+                  <circle cx="91" cy="120" r="5.4" fill="#2A160C"/><circle cx="129" cy="120" r="5.4" fill="#2A160C"/>
+                  <circle cx="92.6" cy="118" r="1.8" fill="#FFF"/><circle cx="130.6" cy="118" r="1.8" fill="#FFF"/>
+                </g>
+                <!-- má, mũi, miệng -->
+                <circle cx="76" cy="138" r="11.5" fill="#4E8A5A" stroke="#3B2314" stroke-width="2.2"/>
+                <path d="M76,131 C81,135 81,142 76,145 C71,142 71,135 76,131 Z" fill="none" stroke="#E8B45A" stroke-width="2"/>
+                <circle cx="144" cy="138" r="11.5" fill="#4E8A5A" stroke="#3B2314" stroke-width="2.2"/>
+                <path d="M144,131 C149,135 149,142 144,145 C139,142 139,135 144,131 Z" fill="none" stroke="#E8B45A" stroke-width="2"/>
+                <path d="M101,132 C104,126 116,126 119,132 C117,142 112,148 110,148 C108,148 103,142 101,132 Z" fill="#C43E2F" stroke="#3B2314" stroke-width="2"/>
+                <path d="M82,156 C92,176 128,176 138,156 C134,170 122,180 110,180 C98,180 86,170 82,156 Z" fill="#FFF9EC" stroke="#3B2314" stroke-width="2.6" stroke-linejoin="round"/>
+                <path d="M96,162 L96,172 M110,166 L110,178 M124,162 L124,172" stroke="#3B2314" stroke-width="1.8"/>
+                <ellipse cx="110" cy="174" rx="10" ry="4.5" fill="#C43E2F"/>
+                <!-- râu và râu cằm -->
+                <g fill="#FFF9EC" stroke="#3B2314" stroke-width="1.8">
+                  <circle cx="52" cy="114" r="4.4"/><circle cx="48" cy="128" r="4.4"/>
+                  <circle cx="168" cy="114" r="4.4"/><circle cx="172" cy="128" r="4.4"/>
+                </g>
+                <path d="M92,196 a9,9 0 0 1 18,0 a9,9 0 0 1 18,0" fill="none" stroke="#E8B45A" stroke-width="3.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="cell-body">
+              <h3>Múa lân</h3>
+              <p>Trống giục, thanh la rộn rã, ông lân theo nhịp múa may, hái lộc và mang quà cho các em nhỏ.</p>
+            </div>
+          </article>
+
+          <article class="cell cell-parade reveal" style="--d:180ms">
+            <div class="cell-art" aria-hidden="true">
+              <div class="lantern-row">
+                <span class="lantern-string" aria-hidden="true"></span>
+                <svg viewBox="0 -14 120 142" class="lr-star"><use href="#star-lantern"/></svg>
+                <svg viewBox="0 0 100 150" class="lr-round"><use href="#lantern-round"/></svg>
+                <svg viewBox="0 -8 150 112" class="lr-carp"><use href="#carp-lantern"/></svg>
+              </div>
+            </div>
+            <div class="cell-body">
+              <h3>Rước đèn đêm hội</h3>
+              <p>Đèn ông sao, đèn cá chép cùng rực sáng. Các bạn nhỏ rủ nhau đi hết con hẻm này tới con phố kia.</p>
+            </div>
+          </article>
+
+          <article class="cell cell-feast reveal">
+            <div class="cell-art feast-art" aria-hidden="true">
+              <svg viewBox="0 0 900 340" role="img" aria-label="Mâm cỗ trung thu của cả gia đình">
+                <g fill="#F6E7C4" opacity=".4">
+                  <circle cx="140" cy="70" r="2"/><circle cx="300" cy="46" r="1.6"/><circle cx="520" cy="66" r="1.8"/>
+                  <circle cx="580" cy="130" r="1.5"/><circle cx="850" cy="160" r="2"/>
+                </g>
+                <circle cx="742" cy="86" r="62" fill="url(#panelMoon)"/>
+                <circle cx="722" cy="66" r="11" fill="#C98F35" opacity=".16"/>
+                <circle cx="764" cy="102" r="7" fill="#C98F35" opacity=".14"/>
+                <g fill="var(--sil)">
+                  <path d="M60,286 C68,222 56,192 70,152 C78,128 98,116 118,112 L156,112 C178,116 194,130 200,152 C212,192 200,222 208,286 Z"/>
+                  <circle cx="128" cy="100" r="52"/><circle cx="82" cy="122" r="36"/><circle cx="176" cy="124" r="34"/>
+                  <rect y="282" width="900" height="58"/>
+                </g>
+                <!-- mẹ -->
+                <g fill="var(--sil)">
+                  <circle cx="182" cy="152" r="10"/>
+                  <path d="M170,164 Q182,156 194,164 L200,242 Q182,252 164,242 Z"/>
+                  <path d="M194,178 L226,198" stroke="var(--sil)" stroke-width="7" stroke-linecap="round" fill="none"/>
+                </g>
+                <!-- bố -->
+                <g fill="var(--sil)">
+                  <circle cx="662" cy="144" r="11"/>
+                  <path d="M648,158 Q662,150 676,158 L680,238 Q662,248 644,238 Z"/>
+                  <path d="M648,174 L614,202" stroke="var(--sil)" stroke-width="7" stroke-linecap="round" fill="none"/>
+                </g>
+                <!-- hai bạn nhỏ -->
+                <g fill="var(--sil)">
+                  <circle cx="402" cy="210" r="8"/>
+                  <path d="M394,218 Q402,212 410,218 L412,244 Q402,250 392,244 Z"/>
+                  <path d="M408,222 L424,208" stroke="var(--sil)" stroke-width="5" stroke-linecap="round" fill="none"/>
+                  <circle cx="502" cy="214" r="7.5"/>
+                  <path d="M495,221 Q502,216 509,221 L511,246 Q502,251 493,246 Z"/>
+                  <path d="M495,225 L481,213" stroke="var(--sil)" stroke-width="5" stroke-linecap="round" fill="none"/>
+                </g>
+                <!-- bàn và mâm cỗ -->
+                <rect x="256" y="252" width="10" height="52" fill="var(--sil)"/>
+                <rect x="514" y="252" width="10" height="52" fill="var(--sil)"/>
+                <rect x="240" y="240" width="300" height="12" rx="6" fill="#1E1A3C"/>
+                <path d="M240,240 H540" stroke="#C98F35" stroke-width="1.6" opacity=".7"/>
+                <ellipse cx="395" cy="234" rx="132" ry="11" fill="#252048" stroke="#C98F35" stroke-width="1.4"/>
+                <g>
+                  <circle cx="338" cy="214" r="36" fill="#8F4E1D"/>
+                  <circle cx="338" cy="208" r="36" fill="url(#cakeBaked)" stroke="#7A3F16" stroke-width="2.5"/>
+                  <rect x="314" y="184" width="48" height="48" rx="7" fill="#D98E3F" stroke="#7A3F16" stroke-width="2"/>
+                  <circle cx="338" cy="208" r="7" fill="none" stroke="#7A3F16" stroke-width="2"/>
+                </g>
+                <g>
+                  <circle cx="432" cy="216" r="26" fill="url(#cakeSnow)" stroke="#D8C6A2" stroke-width="2.4"/>
+                  <circle cx="432" cy="217" r="19" fill="none" stroke="#D8C6A2" stroke-width="2"/>
+                  <circle cx="432" cy="218" r="6.5" fill="#DCC9A0"/>
+                  <path d="M429,214 C427,209 428,205 431,202 M435,214 C437,209 436,205 433,202" fill="none" stroke="#DCC9A0" stroke-width="2.4" stroke-linecap="round"/>
+                </g>
+                <path d="M462,206 C480,194 508,196 520,210 C508,226 480,228 462,220 C456,215 456,211 462,206 Z" fill="#E9C24A" stroke="#3B2314" stroke-width="2.2"/>
+                <path d="M470,207 C475,214 475,219 470,224 M486,204 C491,211 491,219 486,225" fill="none" stroke="#B98A26" stroke-width="1.8"/>
+                <circle cx="556" cy="212" r="18" fill="#6FA065" stroke="#4E8A5A" stroke-width="2.2"/>
+                <g fill="#EAF2DD"><circle cx="550" cy="207" r="1.9"/><circle cx="561" cy="209" r="1.9"/><circle cx="552" cy="217" r="1.9"/><circle cx="561" cy="216" r="1.5"/><circle cx="556" cy="205" r="1.5"/></g>
+                <g>
+                  <circle cx="292" cy="208" r="17" fill="#8C3B30" stroke="#3B2314" stroke-width="2.2"/>
+                  <path d="M278,204 C268,200 264,192 266,186" fill="none" stroke="#8C3B30" stroke-width="6" stroke-linecap="round"/>
+                  <path d="M308,202 C320,198 320,222 306,224" fill="none" stroke="#8C3B30" stroke-width="4.5"/>
+                  <circle cx="292" cy="192" r="6" fill="#8C3B30"/><circle cx="292" cy="186" r="2.2" fill="#C98F35"/>
+                  <rect x="330" y="228" width="12" height="8" rx="2" fill="#B9463C"/>
+                  <rect x="258" y="228" width="12" height="8" rx="2" fill="#B9463C"/>
+                </g>
+                <g>
+                  <rect x="600" y="210" width="7" height="24" rx="2.5" fill="#C43E2F"/>
+                  <rect x="618" y="212" width="7" height="22" rx="2.5" fill="#C43E2F"/>
+                  <circle class="glow-pulse" cx="603.5" cy="203" r="13" fill="url(#glowGold)"/>
+                  <circle class="glow-pulse" cx="621.5" cy="205" r="12" fill="url(#glowGold)" style="animation-delay:-1.5s"/>
+                  <path d="M603.5,201 C606,195 606,191 603.5,187 C601,191 601,195 603.5,201 Z" fill="#FFD98A"/>
+                  <path d="M621.5,203 C624,197 624,193 621.5,189 C619,193 619,197 621.5,203 Z" fill="#FFD98A"/>
+                </g>
+                <circle class="glow-pulse" cx="424" cy="164" r="22" fill="url(#glowGold)"/>
+                <use href="#star-lantern" x="402" y="164" width="44" height="52"/>
+                <circle class="glow-pulse" cx="478" cy="172" r="20" fill="url(#glowRed)" style="animation-delay:-.9s"/>
+                <use href="#lantern-round" x="462" y="172" width="34" height="51"/>
+              </svg>
+            </div>
+            <div class="cell-body feast-body">
+              <h3>Mâm ngũ quả và phá cỗ</h3>
+              <p>Đêm rằm, cả nhà quây quần bên mâm cỗ với hoa quả mùa thu, ấm trà nóng và những câu chuyện cũ. Trẻ phá cỗ, người lớn ngắm trăng, đủ đầy là thế.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= THẢ ĐÈN ƯỚC NGUYỆN ================= -->
+    <section class="wish" id="uoc-nguyen" aria-labelledby="wish-title">
+      <div class="wrap">
+        <header class="section-head">
+          <h2 class="reveal" id="wish-title">Thả đèn<br>ước nguyện</h2>
+          <p class="lede reveal" style="--d:100ms">Viết một điều ước, thả đèn lồng lên trời và để vầng trăng giữ giùm.</p>
+        </header>
+        <form class="wish-form reveal" id="wishForm" style="--d:180ms" novalidate>
+          <label class="sr-only" for="wishInput">Điều ước của bạn</label>
+          <input id="wishInput" type="text" maxlength="60" autocomplete="off" placeholder="Một điều ước cho đêm nay">
+          <button class="btn btn-primary" type="submit">
+            <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v14m0 0 5-5m-5 5-5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 21h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Thả đèn
+          </button>
+        </form>
+        <p class="wish-live" id="wishLive" role="status" aria-live="polite"></p>
+      </div>
+      <div class="wish-sky" id="wishSky" aria-hidden="true"></div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <svg class="footer-divider" viewBox="0 0 120 44" aria-hidden="true">
+        <circle cx="60" cy="22" r="14" fill="#F5EDDC" stroke="#D8C6A2" stroke-width="1.6"/>
+        <circle cx="60" cy="22" r="9" fill="none" stroke="#DCC9A0" stroke-width="1.4"/>
+        <path d="M60,16 C63,18 63,22 60,24 C59,22 59,19 60,16 Z" fill="#DCC9A0"/>
+        <path d="M6,22 C22,14 38,14 44,22 M116,22 C100,14 84,14 78,22" fill="none" stroke="#C98F35" stroke-width="1.6" stroke-linecap="round"/>
+        <circle cx="4" cy="22" r="2" fill="#C98F35"/><circle cx="116" cy="22" r="2" fill="#C98F35"/>
+      </svg>
+      <p class="footer-line">Trăng tròn, người trọn,<br>trung thu thật vui.</p>
+      <p class="footer-small">Đêm Trăng Rằm, một trang nhỏ chúc mừng Tết Trung Thu 2026.</p>
+      <a class="footer-top" href="#top">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V7m0 0-5 5m5-5 5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Về đầu trang
+      </a>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
