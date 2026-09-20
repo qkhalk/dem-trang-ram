@@ -279,9 +279,10 @@
     if (sky) { name === 'home' ? sky.start() : sky.stop(); }
     heroVisible = (name === 'home');
 
-    // đèn ước nguyện: gieo lứa đầu khi vừa vào màn
+    // đèn ước nguyện: đám đông lần đầu, chen nhẹ các lần sau
     if (name === 'uoc-nguyen') {
-      if (!wishShownOnce) { seedWishLanterns(); wishShownOnce = true; }
+      if (!wishShownOnce) { wishShownOnce = true; crowdWishLanterns(16); }
+      else if (!wishSky || wishSky.children.length < 6) { crowdWishLanterns(6); }
       startWishAmbient();
     } else {
       stopWishAmbient();
@@ -370,7 +371,7 @@
 
   function spawnWishLantern(text, delay) {
     if (!wishSky || prefersReduced) return;
-    if (wishSky.children.length > 26) wishSky.firstElementChild.remove();
+    if (wishSky.children.length > 30) wishSky.firstElementChild.remove();
 
     var el = document.createElement('div');
     el.className = 'wl';
@@ -402,22 +403,34 @@
   }
 
   function seedWishLanterns() {
-    if (prefersReduced) return;
-    currentWishes().slice(-8).forEach(function (t, i) {
-      spawnWishLantern(t, 500 + i * 1400);
-    });
+    crowdWishLanterns(16);
+  }
+
+  /* Đám đông thả đèn: n đèn nối đuôi nhau, nhịp ngẫu nhiên như nhiều người thả */
+  function crowdWishLanterns(n) {
+    if (prefersReduced || !wishSky) return;
+    var list = currentWishes();
+    for (var i = 0; i < n; i++) {
+      spawnWishLantern(list[i % list.length], 300 + i * rand(420, 820));
+    }
   }
 
   function startWishAmbient() {
     if (prefersReduced) return;
     stopWishAmbient();
-    wishTimer = setInterval(function () {
-      var list = currentWishes();
-      spawnWishLantern(list[Math.floor(Math.random() * list.length)], 0);
-    }, 7000);
+    wishTimer = setTimeout(function tick() {
+      if (current === 'uoc-nguyen' && wishSky && wishSky.children.length < 30) {
+        var list = currentWishes();
+        spawnWishLantern(list[Math.floor(Math.random() * list.length)], 0);
+        if (Math.random() < 0.55) {
+          spawnWishLantern(list[Math.floor(Math.random() * list.length)], rand(150, 700));
+        }
+      }
+      wishTimer = setTimeout(tick, rand(1600, 3000));
+    }, 1200);
   }
   function stopWishAmbient() {
-    if (wishTimer) { clearInterval(wishTimer); wishTimer = null; }
+    if (wishTimer) { clearTimeout(wishTimer); wishTimer = null; }
   }
 
   /* ---------- Khởi tạo ---------- */
@@ -433,6 +446,37 @@
     var canvas = document.getElementById('stars');
     if (canvas && hero) {
       sky = new Starfield(canvas, hero);
+    }
+
+    /* Con trỏ lễ hội: quầng sáng bay theo chuột */
+    if (!prefersReduced && window.matchMedia('(pointer: fine)').matches) {
+      var orb = document.createElement('div');
+      orb.className = 'cursor-orb';
+      var dotEl = document.createElement('div');
+      dotEl.className = 'cursor-dot';
+      document.body.appendChild(orb);
+      document.body.appendChild(dotEl);
+      var mx = -100, my = -100, ox = -100, oy = -100;
+
+      document.addEventListener('pointermove', function (e) {
+        mx = e.clientX; my = e.clientY;
+        dotEl.style.left = mx + 'px';
+        dotEl.style.top = my + 'px';
+        document.body.classList.add('cursor-live');
+      });
+      document.addEventListener('pointerover', function (e) {
+        orb.classList.toggle('is-hover', !!(e.target.closest && e.target.closest('a, button, .cell, .tabbar a, .ft-close')));
+      });
+      document.addEventListener('pointerdown', function () { orb.classList.add('is-down'); });
+      document.addEventListener('pointerup', function () { orb.classList.remove('is-down'); });
+
+      (function follow() {
+        ox += (mx - ox) * 0.16;
+        oy += (my - oy) * 0.16;
+        orb.style.left = ox.toFixed(1) + 'px';
+        orb.style.top = oy.toFixed(1) + 'px';
+        requestAnimationFrame(follow);
+      })();
     }
 
     /* Parallax nhẹ theo con trỏ */

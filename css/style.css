@@ -76,7 +76,16 @@ body {
   color: var(--cream);
   background: linear-gradient(var(--night-950), var(--night-900) 55%, var(--night-950));
   -webkit-font-smoothing: antialiased;
+  /* Con trỏ trăng khuyết: thay mũi tên mặc định */
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 26 26'><circle cx='13' cy='13' r='9' fill='%23E8B45A' opacity='.18'/><path d='M18.5 16.8A9 9 0 0 1 9.2 7.5 9 9 0 1 0 18.5 16.8Z' fill='%23F6DFA6' stroke='%23C98F35' stroke-width='1.2'/></svg>") 13 13, auto;
 }
+
+/* Con trỏ sao vàng trên nút, liên kết, thẻ */
+a, button, .cell, .tabbar a, .ft-close, label {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'><circle cx='15' cy='15' r='10' fill='%23E8B45A' opacity='.22'/><path d='M15 4l2.9 7 7.6.6-5.8 5 1.8 7.4-6.5-3.9-6.5 3.9 1.8-7.4-5.8-5 7.6-.6z' fill='%23F1C169' stroke='%233B2314' stroke-width='1.1'/></svg>") 15 15, pointer;
+}
+
+input, textarea { cursor: text; }
 
 /* Khi có JS: trang khoá cuộn dọc, mỗi màn tự lo phần tràn của mình */
 html.js, html.js body { height: 100%; overflow: hidden; }
@@ -237,10 +246,11 @@ body:not([data-screen="home"]) .nav {
   padding: calc(var(--nav-h) + 36px) 0 170px;
   overflow: hidden;
   background:
-    radial-gradient(1100px 720px at 76% 24%, oklch(32% 0.06 70 / 0.5), transparent 62%),
-    radial-gradient(900px 600px at 10% 90%, oklch(24% 0.05 290 / 0.5), transparent 60%),
-    radial-gradient(120% 55% at 50% 108%, oklch(34% 0.07 78 / 0.4), transparent 62%),
-    linear-gradient(180deg, oklch(12% 0.04 286), oklch(16% 0.045 283) 58%, oklch(15% 0.04 284));
+    linear-gradient(90deg, oklch(12% 0.04 286 / 0.5), transparent 58%),
+    radial-gradient(1100px 720px at 76% 24%, oklch(32% 0.06 70 / 0.3), transparent 62%),
+    linear-gradient(180deg, oklch(12% 0.04 286 / 0.72), oklch(15% 0.045 283 / 0.58) 55%, oklch(13% 0.04 284 / 0.8)),
+    url("../img/bg-home.jpg") center / cover no-repeat,
+    linear-gradient(180deg, oklch(12% 0.04 286), oklch(15% 0.04 284));
 }
 
 .stars { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
@@ -432,6 +442,7 @@ body.festival .moon {
   font-size: 1rem;
   animation: badgeGlow 2.6s ease-in-out infinite alternate;
 }
+.festival-badge[hidden] { display: none; }
 .festival-badge svg { width: 30px; height: auto; flex: none; }
 .festival-badge strong { color: var(--gold-300); font-weight: 600; }
 
@@ -446,11 +457,21 @@ body.festival .moon {
 .section-head h2 { font-size: var(--step-3); color: var(--cream); }
 .section-head .lede { margin-top: 0; max-width: 52ch; }
 
+/* Chữ nằm trực tiếp trên nền ảnh: thêm bóng để đọc rõ */
+.legends .section-head h2, .customs .section-head h2, .wish .section-head h2,
+.song-quote p {
+  text-shadow: 0 2px 24px oklch(10% 0.03 285 / 0.95), 0 1px 3px oklch(10% 0.03 285 / 0.65);
+}
+.legends .section-head .lede, .customs .section-head .lede, .wish .section-head .lede {
+  text-shadow: 0 1px 14px oklch(10% 0.03 285 / 0.9);
+}
+
 /* ---------- MÀN 2 · Truyền thuyết ---------- */
 
 .legends {
   background:
-    radial-gradient(1000px 620px at 85% 0%, oklch(24% 0.05 290 / 0.4), transparent 62%),
+    linear-gradient(180deg, oklch(14% 0.035 285 / 0.86), oklch(16% 0.042 283 / 0.72) 50%, oklch(14% 0.035 285 / 0.88)),
+    url("../img/bg-legends.jpg") center / cover no-repeat,
     linear-gradient(180deg, var(--night-950), oklch(16% 0.042 283));
 }
 
@@ -467,7 +488,7 @@ body.festival .moon {
 
 .story {
   display: flex; flex-direction: column;
-  background: oklch(19% 0.042 281 / 0.72);
+  background: oklch(18% 0.04 281 / 0.82);
   border: 1px solid var(--line);
   border-radius: var(--r-m);
   padding: 18px 18px 20px;
@@ -501,7 +522,8 @@ body.festival .moon {
 
 .customs {
   background:
-    radial-gradient(1000px 620px at 12% 0%, oklch(24% 0.05 290 / 0.35), transparent 62%),
+    linear-gradient(180deg, oklch(14% 0.035 285 / 0.84), oklch(15% 0.038 284 / 0.7) 50%, oklch(13% 0.036 284 / 0.88)),
+    url("../img/bg-customs.jpg") center / cover no-repeat,
     linear-gradient(180deg, oklch(16% 0.042 283), var(--night-950));
 }
 
@@ -514,7 +536,7 @@ body.festival .moon {
 
 .cell {
   position: relative;
-  background: oklch(20% 0.045 281);
+  background: oklch(19% 0.042 281 / 0.88);
   border: 1px solid var(--line);
   border-radius: var(--r-m);
   padding: clamp(16px, 2vw, 26px);
@@ -566,17 +588,14 @@ body.festival .moon {
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(1.4px 1.4px at 22px 34px, oklch(92% 0.04 90 / 0.4), transparent),
-    radial-gradient(1.2px 1.2px at 128px 92px, oklch(92% 0.04 90 / 0.3), transparent),
-    radial-gradient(1.6px 1.6px at 204px 44px, oklch(92% 0.04 90 / 0.34), transparent),
-    radial-gradient(1400px 820px at 50% -12%, oklch(26% 0.06 285 / 0.75), transparent 66%),
+    linear-gradient(180deg, oklch(13% 0.036 284 / 0.86), oklch(14% 0.038 283 / 0.7) 45%, oklch(12% 0.034 284 / 0.88)),
+    url("../img/bg-wish.jpg") center / cover no-repeat,
     linear-gradient(var(--night-950), oklch(13% 0.04 284));
-  background-size: 240px 200px, 240px 200px, 240px 200px, auto, auto;
 }
 
 .wish .wrap { display: flex; flex-direction: column; min-height: calc(100dvh - var(--nav-h) - 56px); }
 
-.wish .section-head { text-align: center; justify-items: center; }
+.wish .section-head { text-align: center; justify-items: center; grid-template-columns: 1fr; }
 .wish .lede { margin-inline: auto; }
 
 .wish-form {
@@ -632,6 +651,44 @@ body.festival .moon {
   color: var(--gold-200);
 }
 .footer-small { margin-top: var(--sp-2); color: var(--muted); font-size: 0.82rem; }
+
+/* ---------- Con trỏ lễ hội: quầng sáng bay theo ---------- */
+
+.cursor-orb, .cursor-dot {
+  position: fixed; left: -100px; top: -100px;
+  pointer-events: none; z-index: 80;
+  opacity: 0;
+}
+body.cursor-live .cursor-orb, body.cursor-live .cursor-dot { opacity: 1; }
+
+.cursor-orb {
+  width: 96px; height: 96px; border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, oklch(88% 0.12 90 / 0.32), oklch(82% 0.12 86 / 0.1) 48%, transparent 72%);
+  mix-blend-mode: screen;
+  transition:
+    opacity 0.3s var(--ease-out-quart),
+    width 0.25s var(--ease-out-quart),
+    height 0.25s var(--ease-out-quart),
+    background 0.25s var(--ease-out-quart);
+}
+.cursor-orb.is-hover {
+  width: 150px; height: 150px;
+  background: radial-gradient(circle, oklch(90% 0.13 92 / 0.42), oklch(84% 0.13 88 / 0.14) 50%, transparent 74%);
+}
+.cursor-orb.is-down { width: 64px; height: 64px; }
+
+.cursor-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--gold-200);
+  box-shadow: 0 0 12px 3px oklch(85% 0.12 88 / 0.8);
+  transition: opacity 0.3s var(--ease-out-quart);
+}
+
+@media (pointer: coarse) {
+  .cursor-orb, .cursor-dot { display: none; }
+}
 
 /* ---------- Lễ hội: pháo hoa + lời chúc ---------- */
 
