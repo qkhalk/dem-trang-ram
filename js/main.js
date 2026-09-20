@@ -736,20 +736,6 @@
       });
     }
 
-    /* Xoá các đèn ước đã lưu trong máy (điều ước test, chữ lạ...) */
-    var clearBtn = document.getElementById('wishClear');
-    if (clearBtn && live) {
-      clearBtn.addEventListener('click', function () {
-        try { window.localStorage.removeItem(STORE_KEY); } catch (e) { /* bỏ qua */ }
-        if (wishSky) wishSky.innerHTML = '';
-        crowdWishLanterns(8);
-        live.textContent = 'Đã xoá các đèn ước đã lưu — thả điều ước mới nhé.';
-        clearTimeout(liveTimer);
-        liveTimer = setTimeout(function () { live.textContent = ''; }, 4500);
-        input.focus();
-      });
-    }
-
     /* ---------- Điều hướng phụ: phím mũi tên + vuốt ngang ---------- */
 
     function step(dir) {
