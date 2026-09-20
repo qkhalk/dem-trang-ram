@@ -229,6 +229,10 @@
   var screens = {};
   var current = null;
 
+  /* Chỉ chặn hiệu ứng khi bấm TRÚNG chữ hoặc nút — vùng trống (kể cả
+     khoảng đệm quanh chữ) vẫn thả sao băng / pháo hoa, bôi đen chữ không bị phá */
+  var CLICK_GUARD = 'a, button, input, form, label, select, textarea, p, h1, h2, h3, h4, span, strong, em, blockquote, figcaption, .count-grid, .festival-badge, .nav, .tabbar, .festival-toast';
+
   var sky = null;          // Starfield của màn home
   var heroVisible = true;  // đèn lồng hero chỉ bay khi home đang mở
   var wishShownOnce = false;
@@ -305,7 +309,7 @@
     if (canvas && hero) {
       sky = new Starfield(canvas, hero);
       hero.addEventListener('click', function (e) {
-        if (e.target !== hero) return; /* chỉ nhận vùng nền trống */
+        if (e.target.closest(CLICK_GUARD)) return;
         var rect = hero.getBoundingClientRect();
         sky.shoot(e.clientX - rect.left, e.clientY - rect.top);
       });
@@ -437,11 +441,10 @@
 
     if (party === '1') enableFestival();
 
-    // bắn pháo hoa tại chỗ chạm VÀO VÙNG TRỐNG (đêm lễ hội) — không phiền khi bôi đen chữ
+    // bắn pháo hoa tại chỗ chạm vùng trống (đêm lễ hội) — không phiền khi bôi đen chữ
     document.addEventListener('click', function (e) {
       if (!festivalOn || prefersReduced) return;
-      var t = e.target;
-      if (!t.matches('.screen, .hero, .stars, .wish-sky, .song-scene')) return;
+      if (e.target.closest(CLICK_GUARD)) return;
       fireworks.burst(e.clientX, e.clientY);
     });
 

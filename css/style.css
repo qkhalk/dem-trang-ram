@@ -29,7 +29,7 @@
   --art-outline: #3B2314;
 
   /* Chữ */
-  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-display: "Lora", Georgia, "Times New Roman", serif;
   --font-body: "Be Vietnam Pro", "Segoe UI", Tahoma, sans-serif;
   --step--1: clamp(0.82rem, 0.8rem + 0.1vw, 0.88rem);
   --step-0: clamp(1.05rem, 1rem + 0.2vw, 1.125rem);
