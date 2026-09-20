@@ -300,12 +300,12 @@
 
     var hero = screens.home;
 
-    /* Sao + chạm để thả sao băng */
+    /* Sao + chạm vùng trống để thả sao băng (không chặn bôi đen chữ) */
     var canvas = document.getElementById('stars');
     if (canvas && hero) {
       sky = new Starfield(canvas, hero);
       hero.addEventListener('click', function (e) {
-        if (e.target.closest('a, button, input, form')) return;
+        if (e.target !== hero) return; /* chỉ nhận vùng nền trống */
         var rect = hero.getBoundingClientRect();
         sky.shoot(e.clientX - rect.left, e.clientY - rect.top);
       });
@@ -437,10 +437,11 @@
 
     if (party === '1') enableFestival();
 
-    // bắn pháo hoa tại chỗ chạm (đêm lễ hội)
+    // bắn pháo hoa tại chỗ chạm VÀO VÙNG TRỐNG (đêm lễ hội) — không phiền khi bôi đen chữ
     document.addEventListener('click', function (e) {
       if (!festivalOn || prefersReduced) return;
-      if (e.target.closest('a, button, input, form, .festival-toast')) return;
+      var t = e.target;
+      if (!t.matches('.screen, .hero, .stars, .wish-sky, .song-scene')) return;
       fireworks.burst(e.clientX, e.clientY);
     });
 
