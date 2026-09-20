@@ -11,7 +11,7 @@ Trang web lễ hội Trung Thu làm bằng **HTML + CSS + JavaScript thuần** �
 - **Truyền thuyết** Hằng Nga & Chú Cuội với minh họa paper-cut SVG + lời bài "Múa lân"
 - **Phong tục**: bánh nướng · bánh dẻo, múa lân, đèn ông sao · đèn cá chép, mâm cỗ đêm hội (bento)
 - **Thả đèn ước nguyện**: viết điều ước → đèn bay lên trời, lưu bằng `localStorage`
-- **Tương tác**: chạm bầu trời để thả sao băng ✦, parallax theo con trỏ
+- **Tương tác**: bấm vùng trống ở bất kỳ màn nào để thả sao băng ✦ (bấm vào chữ thì không — để bôi đen văn bản thoải mái), parallax theo con trỏ
 - **Font tự host** (Cormorant Garamond + Be Vietnam Pro, subset tiếng Việt) — không phụ thuộc Google Fonts, chạy offline hoàn toàn
 - Tôn trọng `prefers-reduced-motion`: tắt animation cho người nhạy cảm chuyển động
 

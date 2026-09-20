@@ -645,6 +645,12 @@ body.festival .fireworks { display: block; }
   .fireworks { display: none !important; }
 }
 
+/* Sao băng toàn cục: phủ mọi màn, luôn trong suốt với chuột */
+.meteors {
+  position: fixed; inset: 0; z-index: 45;
+  pointer-events: none;
+}
+
 .festival-toast {
   position: fixed; left: 50%; bottom: 24px; z-index: 70;
   transform: translate(-50%, 20px);

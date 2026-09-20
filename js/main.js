@@ -295,6 +295,131 @@
 
   window.addEventListener('hashchange', function () { goto(hashName()); });
 
+  /* ---------- Lớp sao băng toàn cục: hoạt động trên mọi màn ---------- */
+
+  function MeteorLayer(canvas) {
+    var ctx = canvas.getContext('2d');
+    var meteors = [];
+    var w = 0, h = 0, dpr = 1, raf = 0;
+
+    function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = window.innerWidth;
+      h = window.innerHeight;
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function frame() {
+      ctx.clearRect(0, 0, w, h);
+      var alive = false;
+      for (var j = meteors.length - 1; j >= 0; j--) {
+        var m = meteors[j];
+        m.x += m.vx; m.y += m.vy; m.life -= 0.014;
+        if (m.life <= 0 || m.x < -m.len || m.y > h + m.len) { meteors.splice(j, 1); continue; }
+        alive = true;
+        var tx = m.x - m.vx * (m.len / 8);
+        var ty = m.y - m.vy * (m.len / 8);
+        var g = ctx.createLinearGradient(m.x, m.y, tx, ty);
+        g.addColorStop(0, 'rgba(255, 238, 196, ' + (0.95 * m.life) + ')');
+        g.addColorStop(1, 'rgba(255, 238, 196, 0)');
+        ctx.strokeStyle = g;
+        ctx.lineWidth = 2;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(m.x, m.y);
+        ctx.lineTo(tx, ty);
+        ctx.stroke();
+      }
+      if (alive) { raf = requestAnimationFrame(frame); }
+      else { raf = 0; ctx.clearRect(0, 0, w, h); }
+    }
+
+    this.shoot = function (x, y) {
+      if (prefersReduced) return;
+      meteors.push({ x: x, y: y, vx: -rand(5.5, 8), vy: rand(2.6, 4), len: rand(110, 200), life: 1 });
+      if (!raf) raf = requestAnimationFrame(frame);
+    };
+
+    resize();
+    window.addEventListener('resize', resize);
+  }
+
+  /* ---------- Đèn ước nguyện (phạm vi module: goto() cũng gọi được) ---------- */
+
+  var STORE_KEY = 'trungthu.wishes.v1';
+  var seeds = ['Sức khoẻ cho ông bà', 'Cả nhà luôn sum họp', 'Thi học kỳ được điểm mười', 'Được một chiếc đèn ông sao mới'];
+  var wishSky = null;
+  var liveTimer = null;
+
+  function loadWishes() {
+    try {
+      var raw = window.localStorage.getItem(STORE_KEY);
+      if (raw) return JSON.parse(raw);
+    } catch (e) { /* localStorage có thể bị chặn */ }
+    return null;
+  }
+  function saveWishes(list) {
+    try {
+      window.localStorage.setItem(STORE_KEY, JSON.stringify(list.slice(-24)));
+    } catch (e) { /* bỏ qua */ }
+  }
+
+  function spawnWishLantern(text, delay) {
+    if (!wishSky || prefersReduced) return;
+    if (wishSky.children.length > 26) wishSky.firstElementChild.remove();
+
+    var el = document.createElement('div');
+    el.className = 'wl';
+    el.dataset.hue = String(Math.floor(rand(0, 3)));
+    el.style.setProperty('--x', rand(6, 82).toFixed(1) + '%');
+    el.style.setProperty('--t', rand(15, 21).toFixed(1) + 's');
+    el.style.setProperty('--d', (delay / 1000).toFixed(2) + 's');
+
+    var sway = document.createElement('div');
+    sway.className = 'wl-sway';
+    sway.style.setProperty('--sw', rand(3.4, 5.2).toFixed(1) + 's');
+    sway.innerHTML = '<svg viewBox="0 0 100 150"><use href="#lantern-round"/></svg>';
+
+    var tag = document.createElement('span');
+    tag.className = 'wl-tag';
+    tag.textContent = text;
+
+    el.appendChild(sway);
+    el.appendChild(tag);
+    el.addEventListener('animationend', function (ev) {
+      if (ev.target === el) el.remove();
+    });
+    wishSky.appendChild(el);
+  }
+
+  function currentWishes() {
+    var saved = loadWishes();
+    return saved && saved.length ? saved : seeds;
+  }
+
+  function seedWishLanterns() {
+    if (prefersReduced) return;
+    currentWishes().slice(-8).forEach(function (t, i) {
+      spawnWishLantern(t, 500 + i * 1400);
+    });
+  }
+
+  function startWishAmbient() {
+    if (prefersReduced) return;
+    stopWishAmbient();
+    wishTimer = setInterval(function () {
+      var list = currentWishes();
+      spawnWishLantern(list[Math.floor(Math.random() * list.length)], 0);
+    }, 7000);
+  }
+  function stopWishAmbient() {
+    if (wishTimer) { clearInterval(wishTimer); wishTimer = null; }
+  }
+
   /* ---------- Khởi tạo ---------- */
 
   function init() {
@@ -304,15 +429,10 @@
 
     var hero = screens.home;
 
-    /* Sao + chạm vùng trống để thả sao băng (không chặn bôi đen chữ) */
+    /* Sao nền của màn chủ (nhấp nháy + sao băng ngẫu nhiên) */
     var canvas = document.getElementById('stars');
     if (canvas && hero) {
       sky = new Starfield(canvas, hero);
-      hero.addEventListener('click', function (e) {
-        if (e.target.closest(CLICK_GUARD)) return;
-        var rect = hero.getBoundingClientRect();
-        sky.shoot(e.clientX - rect.left, e.clientY - rect.top);
-      });
     }
 
     /* Parallax nhẹ theo con trỏ */
@@ -380,6 +500,7 @@
     var badge = document.getElementById('festivalBadge');
     var toast = document.getElementById('festivalToast');
     var fireworks = new Fireworks(document.getElementById('fireworks'));
+    var meteors = new MeteorLayer(document.getElementById('meteors'));
     var festivalOn = false;
 
     function showToast() {
@@ -441,87 +562,23 @@
 
     if (party === '1') enableFestival();
 
-    // bắn pháo hoa tại chỗ chạm vùng trống (đêm lễ hội) — không phiền khi bôi đen chữ
+    // Một handler duy nhất cho mọi màn: bấm vùng trống
+    //  · thường        → thả sao băng
+    //  · đêm lễ hội    → bắn pháo hoa
+    // Bấm trúng chữ/nút thì bỏ qua để bôi đen văn bản bình thường
     document.addEventListener('click', function (e) {
-      if (!festivalOn || prefersReduced) return;
+      if (prefersReduced) return;
       if (e.target.closest(CLICK_GUARD)) return;
-      fireworks.burst(e.clientX, e.clientY);
+      if (festivalOn) fireworks.burst(e.clientX, e.clientY);
+      else meteors.shoot(e.clientX, e.clientY);
     });
 
-    /* ---------- Thả đèn ước nguyện ---------- */
+    /* ---------- Thả đèn ước nguyện: gắn DOM + xử lý gửi ---------- */
 
     var form = document.getElementById('wishForm');
     var input = document.getElementById('wishInput');
-    var wishSky = document.getElementById('wishSky');
+    wishSky = document.getElementById('wishSky');
     var live = document.getElementById('wishLive');
-    var STORE_KEY = 'trungthu.wishes.v1';
-    var liveTimer = null;
-    var seeds = ['Sức khoẻ cho ông bà', 'Cả nhà luôn sum họp', 'Thi học kỳ được điểm mười', 'Được một chiếc đèn ông sao mới'];
-
-    function loadWishes() {
-      try {
-        var raw = window.localStorage.getItem(STORE_KEY);
-        if (raw) return JSON.parse(raw);
-      } catch (e) { /* localStorage có thể bị chặn */ }
-      return null;
-    }
-    function saveWishes(list) {
-      try {
-        window.localStorage.setItem(STORE_KEY, JSON.stringify(list.slice(-24)));
-      } catch (e) { /* bỏ qua */ }
-    }
-
-    function spawnWishLantern(text, delay) {
-      if (!wishSky || prefersReduced) return;
-      if (wishSky.children.length > 26) wishSky.firstElementChild.remove();
-
-      var el = document.createElement('div');
-      el.className = 'wl';
-      el.dataset.hue = String(Math.floor(rand(0, 3)));
-      el.style.setProperty('--x', rand(6, 82).toFixed(1) + '%');
-      el.style.setProperty('--t', rand(15, 21).toFixed(1) + 's');
-      el.style.setProperty('--d', (delay / 1000).toFixed(2) + 's');
-
-      var sway = document.createElement('div');
-      sway.className = 'wl-sway';
-      sway.style.setProperty('--sw', rand(3.4, 5.2).toFixed(1) + 's');
-      sway.innerHTML = '<svg viewBox="0 0 100 150"><use href="#lantern-round"/></svg>';
-
-      var tag = document.createElement('span');
-      tag.className = 'wl-tag';
-      tag.textContent = text;
-
-      el.appendChild(sway);
-      el.appendChild(tag);
-      el.addEventListener('animationend', function (ev) {
-        if (ev.target === el) el.remove();
-      });
-      wishSky.appendChild(el);
-    }
-
-    function currentWishes() {
-      var saved = loadWishes();
-      return saved && saved.length ? saved : seeds;
-    }
-
-    function seedWishLanterns() {
-      if (prefersReduced) return;
-      currentWishes().slice(-8).forEach(function (t, i) {
-        spawnWishLantern(t, 500 + i * 1400);
-      });
-    }
-
-    function startWishAmbient() {
-      if (prefersReduced) return;
-      stopWishAmbient();
-      wishTimer = setInterval(function () {
-        var list = currentWishes();
-        spawnWishLantern(list[Math.floor(Math.random() * list.length)], 0);
-      }, 7000);
-    }
-    function stopWishAmbient() {
-      if (wishTimer) { clearInterval(wishTimer); wishTimer = null; }
-    }
 
     if (form && input && live) {
       form.addEventListener('submit', function (e) {
