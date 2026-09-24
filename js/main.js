@@ -582,8 +582,7 @@
       window.setFestivalLanterns = function (on) { festivalMode = on; };
     }
 
-    /* ---------- Nhạc nền vui: file nhạc, tự phát khi vào trang ----------
-       "Wholesome" — Kevin MacLeod (incompetech.com), CC BY 4.0.
+    /* ---------- Nhạc nền: "Gác Lại Âu Lo" (Orinn Remix) — Da LAB ft. Miu Lê ----------
        Trình duyệt chặn tiếng trước cú chạm đầu tiên: thử phát ngay,
        nếu bị chặn thì cú chạm/click/phím đầu tiên sẽ kích hoạt. */
 
@@ -591,7 +590,7 @@
 
     function startMusic() {
       if (!bgAudio) {
-        bgAudio = new Audio('audio/nhac-nen.mp3');
+        bgAudio = new Audio('audio/nhac-trung-thu.mp3');
         bgAudio.loop = true;
         bgAudio.volume = 0.45;
         bgAudio.preload = 'auto';
