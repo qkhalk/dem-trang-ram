@@ -10,3 +10,6 @@ desktop.ini
 
 # QA artifacts
 _qa/
+__pycache__/
+*.pyc
+deploy.py
