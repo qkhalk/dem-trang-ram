@@ -620,8 +620,8 @@
 
     /* ---------- Đếm ngược + đêm lễ hội ---------- */
 
+    // Từ 00:00 ngày 25.09.2026 (giờ VN) trở đi: ai vào cũng ở chế độ Trung Thu
     var START = new Date('2026-09-25T00:00:00+07:00').getTime();
-    var END = new Date('2026-09-26T00:00:00+07:00').getTime();
     var elD = document.getElementById('cdDays');
     var elH = document.getElementById('cdHours');
     var elM = document.getElementById('cdMins');
@@ -667,14 +667,9 @@
 
     function tick() {
       var now = Date.now();
-      if (now >= START && now < END) {
+      if (now >= START) {
         enableFestival();
         if (note) note.textContent = 'Hôm nay là Trung Thu. Chúc cả nhà một đêm trăng thật tròn và thật vui.';
-        return;
-      }
-      if (now >= END) {
-        if (grid) grid.hidden = true;
-        if (note) note.textContent = 'Tết Trung Thu 2026 đã đi qua — hẹn gặp lại một vầng trăng tròn khác.';
         return;
       }
       var diff = START - now;
