@@ -69,7 +69,7 @@ def main():
     files = [ROOT]
     for d in DIRS:
         for f in os.listdir(d):
-            if f.endswith(('.woff2', '.css', '.webp', '.mp3')):
+            if f.endswith(('.woff2', '.css', '.webp', '.mp3', '.js')):
                 files.append(f'{d}/{f}')
 
     def ensure_dir(path):
