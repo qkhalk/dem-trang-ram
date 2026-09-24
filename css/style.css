@@ -413,6 +413,9 @@ body.festival .moon {
 .count-cell { padding: 4px clamp(16px, 3.4vw, 42px); text-align: center; }
 .count-cell + .count-cell { border-left: 1px solid var(--line); }
 
+/* thuộc tính hidden phải thắng display:inline-flex ở trên */
+.count-grid[hidden] { display: none; }
+
 .count-num {
   display: block;
   font-size: clamp(1.6rem, 1.4rem + 1.2vw, 2.4rem);
